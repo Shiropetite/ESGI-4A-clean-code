@@ -16,10 +16,7 @@ public class PlayerEntity {
     private int numberOfTokens;
 
     @OneToMany()
-    private List<CardEntity> deck;
-
-    @OneToMany()
-    private List<DuelEntity> duels;
+    private List<HeroEntity> deck;
 
     public PlayerEntity() {}
     

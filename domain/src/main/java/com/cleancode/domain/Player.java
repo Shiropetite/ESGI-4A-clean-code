@@ -1,30 +1,26 @@
 package com.cleancode.domain;
 
-import com.cleancode.domain.cards.Card;
-import com.cleancode.domain.packs.CardPack;
-
 import java.util.ArrayList;
 import java.util.List;
 
 public final class Player {
 
     private final String name;
-    private final int numberOfTokens;
-    private final List<Card> deck;
-    private final List<Duel> duels;
+    private final List<Hero> deck;
+    private int tokens;
 
-    private Player(String name, int numberOfTokens, List<Card> deck, List<Duel> duels) {
+    public Player(String name) {
         this.name = name;
-        this.numberOfTokens = numberOfTokens;
-        this.deck = deck;
-        this.duels = duels;
+        this.deck = new ArrayList<>();
+        this.tokens = 4;
     }
 
-    private Player(String name) {
-        this(name, 4, new ArrayList<>(), new ArrayList<>());
-    }
-
-    public void openCardPack(CardPack cardPack) {
+    public void openCardPack(HeroPack cardPack) {
+        if (this.tokens < cardPack.getRequiredTokens()) {
+            throw new RuntimeException("Vous n'avez pas assez de token pour ouvrir ce pack");
+        }
+        this.tokens -= cardPack.getRequiredTokens();
         this.deck.addAll(cardPack.open());
     }
+
 }

@@ -6,17 +6,17 @@ import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 
 @Entity
-@Table(name = "DUEL")
-public class DuelEntity {
+@Table(name = "HERO_DUEL")
+public class HeroDuelEntity {
 
     @Id
     private String id;
 
     @ManyToOne()
-    private PlayerEntity enemy;
+    private HeroEntity enemy;
 
    private boolean victory;
 
-    public DuelEntity() {}
+    public HeroDuelEntity() {}
 
 }
