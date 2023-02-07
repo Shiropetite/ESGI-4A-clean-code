@@ -17,8 +17,7 @@ public class RefHeroEntity {
 
     private int armorPoints;
 
-    @ManyToOne
-    private HeroPack rarity;
+    private String rarity;
 
     public RefHeroEntity() {}
 
