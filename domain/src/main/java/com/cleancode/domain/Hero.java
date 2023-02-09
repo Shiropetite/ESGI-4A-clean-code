@@ -9,7 +9,7 @@ public abstract class Hero {
     private static final int MAX_LEVEL = 100;
     private final RefHero ref;
     private final List<HeroDuel> duels;
-    private int healthPoints;
+    private float healthPoints;
     private int experiencePoints;
     private int level;
 
@@ -41,19 +41,19 @@ public abstract class Hero {
         opponent.healthPoints += this.getArmorPoints() - this.getPowerPoints();
     }
 
-    public int getMaxHealthPoints() {
+    public float getMaxHealthPoints() {
         return this.ref.getMaxHealthPoints() + this.ref.getMaxHealthPoints() * ((level - 1) / 10);
     }
 
-    public int getPowerPoints() {
+    public float getPowerPoints() {
         return this.ref.getPowerPoints() + this.ref.getPowerPoints() * ((level - 1) / 10);
     }
 
-    public int getArmorPoints() {
+    public float getArmorPoints() {
         return this.ref.getArmorPoints() + this.ref.getArmorPoints() * ((level - 1) / 10);
     }
 
-    public int getHealthPoints() { return this.healthPoints; }
+    public float getHealthPoints() { return this.healthPoints; }
 
     public int getExperiencePoints() {
         return experiencePoints;

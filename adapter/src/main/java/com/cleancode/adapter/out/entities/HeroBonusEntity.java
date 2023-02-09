@@ -1,4 +1,4 @@
-package com.cleancode.adapter.out;
+package com.cleancode.adapter.out.entities;
 
 import jakarta.persistence.*;
 
@@ -7,7 +7,8 @@ import jakarta.persistence.*;
 public class HeroBonusEntity {
 
     @Id
-    private String id;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
 
     private String strong;
 

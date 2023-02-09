@@ -6,10 +6,6 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/heroes")
 public class HeroController {
 
-    // 1. Créations des héros en base de données
-    @PostMapping
-    public String createHeroes(@RequestBody String hero) { return "create heroes"; }
-
     // 2. Rechercher les héros disponibles
     @GetMapping
     public String searchAvailableHeroes() { return "search available heroes"; }

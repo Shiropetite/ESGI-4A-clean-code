@@ -1,4 +1,4 @@
-package com.cleancode.adapter.out;
+package com.cleancode.adapter.out.entities;
 
 import jakarta.persistence.*;
 
@@ -9,7 +9,8 @@ import java.util.List;
 public class PlayerEntity {
 
     @Id
-    private String id;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
 
     private String name;
 

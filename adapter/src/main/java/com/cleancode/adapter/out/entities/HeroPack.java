@@ -1,15 +1,14 @@
-package com.cleancode.adapter.out;
+package com.cleancode.adapter.out.entities;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 
 @Entity
 @Table(name = "HERO_PACK")
 public class HeroPack {
 
     @Id
-    private String id;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
     private String name;
     private int requiredTokens;
     private int numberOfCards;
