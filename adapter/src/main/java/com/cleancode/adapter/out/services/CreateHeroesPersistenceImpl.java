@@ -16,10 +16,7 @@ public class CreateHeroesPersistenceImpl implements CreateHeroesPersistence {
 
     @Override
     public List<RefHero> create(List<RefHero> heroes) {
-        for (RefHero hero: heroes) {
-            System.out.println(hero.getMaxHealthPoints());
-            this.repository.save(fromDomain(hero));
-        }
+        heroes.forEach(hero -> this.repository.save(fromDomain(hero)));
         return heroes;
     }
 
