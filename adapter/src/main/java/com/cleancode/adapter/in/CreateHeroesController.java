@@ -1,7 +1,7 @@
 package com.cleancode.adapter.in;
 
 import com.cleancode.application.ports.in.CreateHeroesService;
-import com.cleancode.domain.RefHero;
+import com.cleancode.domain.HeroRef;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -18,7 +18,7 @@ public class CreateHeroesController {
     public CreateHeroesController(CreateHeroesService service) { this.service = service; }
 
     @PostMapping
-    public List<RefHero> create(@RequestBody List<RefHero> heroes) {
+    public List<HeroRef> create(@RequestBody List<HeroRef> heroes) {
         return this.service.create(heroes);
     }
 

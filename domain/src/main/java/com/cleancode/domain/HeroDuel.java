@@ -9,4 +9,13 @@ public final class HeroDuel {
         this.opponent = opponent;
         this.victory = victory;
     }
+
+    public Hero getOpponent() {
+        return opponent;
+    }
+
+    public boolean isVictory() {
+        return victory;
+    }
+
 }

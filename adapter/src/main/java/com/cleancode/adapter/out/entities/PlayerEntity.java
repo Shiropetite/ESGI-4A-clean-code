@@ -14,11 +14,34 @@ public class PlayerEntity {
 
     private String name;
 
-    private int numberOfTokens;
-
     @OneToMany()
     private List<HeroEntity> deck;
 
+    private int tokens;
+
     public PlayerEntity() {}
-    
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public List<HeroEntity> getDeck() {
+        return deck;
+    }
+
+    public void setDeck(List<HeroEntity> deck) {
+        this.deck = deck;
+    }
+
+    public int getTokens() {
+        return tokens;
+    }
+
+    public void setTokens(int numberOfTokens) {
+        this.tokens = numberOfTokens;
+    }
 }

@@ -1,7 +1,7 @@
 package com.cleancode.adapter.in;
 
 import com.cleancode.application.ports.in.SearchAvailableHeroesService;
-import com.cleancode.domain.RefHero;
+import com.cleancode.domain.HeroRef;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -17,6 +17,6 @@ public class SearchAvailableHeroesController {
     public SearchAvailableHeroesController(SearchAvailableHeroesService service) { this.service = service; }
 
     @GetMapping
-    public List<RefHero> search() { return this.service.search(); }
+    public List<HeroRef> search() { return this.service.search(); }
 
 }

@@ -3,7 +3,7 @@ package com.cleancode.domain;
 import com.cleancode.domain.rarity.HeroRarity;
 import com.cleancode.domain.rarity.HeroRarityFactory;
 
-public class RefHero {
+public class HeroRef {
 
     private final String name;
     private final float maxHealthPoints;
@@ -11,7 +11,7 @@ public class RefHero {
     private final float armorPoints;
     private final HeroRarity rarity;
 
-    public RefHero(String name, float maxHealthPoints, float powerPoints, float armorPoints, String rarity) {
+    public HeroRef(String name, float maxHealthPoints, float powerPoints, float armorPoints, String rarity) {
         this.name = name;
         this.rarity = new HeroRarityFactory().create(rarity);
         this.maxHealthPoints = this.rarity.applyFactor(maxHealthPoints);
@@ -30,4 +30,5 @@ public class RefHero {
     public HeroRarity getRarity() {
         return rarity;
     }
+
 }

@@ -1,11 +1,11 @@
 package com.cleancode.application.ports.out;
 
-import com.cleancode.domain.RefHero;
+import com.cleancode.domain.HeroRef;
 
 import java.util.List;
 
 public interface CreateHeroesPersistence {
 
-    List<RefHero> create(List<RefHero> heroes);
+    List<HeroRef> create(List<HeroRef> heroes);
 
 }

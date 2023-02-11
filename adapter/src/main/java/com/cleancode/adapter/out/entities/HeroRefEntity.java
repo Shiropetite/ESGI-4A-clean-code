@@ -4,7 +4,7 @@ import jakarta.persistence.*;
 
 @Entity
 @Table(name = "REF_HERO")
-public class RefHeroEntity {
+public class HeroRefEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -20,15 +20,7 @@ public class RefHeroEntity {
 
     private String rarity;
 
-    public RefHeroEntity() {}
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
+    public HeroRefEntity() {}
 
     public String getName() {
         return name;

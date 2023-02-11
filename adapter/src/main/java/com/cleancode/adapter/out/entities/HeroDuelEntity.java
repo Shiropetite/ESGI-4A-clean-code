@@ -11,10 +11,26 @@ public class HeroDuelEntity {
     private Long id;
 
     @ManyToOne()
-    private HeroEntity enemy;
+    private HeroEntity opponent;
 
-   private boolean victory;
+    private boolean victory;
 
     public HeroDuelEntity() {}
+
+    public HeroEntity getOpponent() {
+        return opponent;
+    }
+
+    public void setOpponent(HeroEntity enemy) {
+        this.opponent = enemy;
+    }
+
+    public boolean isVictory() {
+        return victory;
+    }
+
+    public void setVictory(boolean victory) {
+        this.victory = victory;
+    }
 
 }
