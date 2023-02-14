@@ -3,7 +3,10 @@ package com.cleancode.adapter.out.mapper;
 import com.cleancode.adapter.out.entities.HeroRefEntity;
 import com.cleancode.domain.HeroRef;
 
-public class HeroRefMapper implements Mapper<HeroRef, HeroRefEntity> {
+import java.util.List;
+import java.util.stream.Collectors;
+
+public class HeroRefMapper implements Mapper<HeroRef, HeroRefEntity>, ListMapper<HeroRef, HeroRefEntity> {
 
     private static HeroRefMapper instance;
 
@@ -34,4 +37,13 @@ public class HeroRefMapper implements Mapper<HeroRef, HeroRefEntity> {
         return entity;
     }
 
+    @Override
+    public List<HeroRef> toDomain(List<HeroRefEntity> entities) {
+        return entities.stream().map(this::toDomain).collect(Collectors.toList());
+    }
+
+    @Override
+    public List<HeroRefEntity> toEntity(List<HeroRef> domains) {
+        return domains.stream().map(this::toEntity).collect(Collectors.toList());
+    }
 }

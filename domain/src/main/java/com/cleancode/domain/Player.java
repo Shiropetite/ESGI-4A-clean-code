@@ -21,12 +21,21 @@ public final class Player {
         this.tokens = tokens;
     }
 
-    public void openCardPack(HeroPack cardPack) {
-        if (this.tokens < cardPack.getRequiredTokens()) {
-            throw new RuntimeException("Vous n'avez pas assez de token pour ouvrir ce pack");
-        }
-        this.tokens -= cardPack.getRequiredTokens();
-        this.deck.addAll(cardPack.open());
+    public boolean canOpenHeroPack(HeroPack pack) {
+        return this.tokens > pack.getRequiredTokens();
+    }
+
+    public void openHeroPack(HeroPack pack, List<Hero> heroes) {
+        removeTokensToOpenHeroPack(pack);
+        addHeroesToDeck(heroes);
+    }
+
+    private void removeTokensToOpenHeroPack(HeroPack pack) {
+        this.tokens -= pack.getRequiredTokens();
+    }
+
+    private void addHeroesToDeck(List<Hero> heroes) {
+        this.deck.addAll(heroes);
     }
 
     public String getName() {
@@ -41,7 +50,4 @@ public final class Player {
         return tokens;
     }
 
-    public void setTokens(int tokens) {
-        this.tokens = tokens;
-    }
 }

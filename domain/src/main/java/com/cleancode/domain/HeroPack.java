@@ -1,35 +1,52 @@
 package com.cleancode.domain;
 
-import java.util.ArrayList;
-import java.util.List;
-
 public class HeroPack {
 
+    private final String name;
     private final int requiredTokens;
     private final int numberOfCards;
-    private final double commonProbability;
-    private final double rareProbability;
-    private final double legendaryProbability;
+    private final float commonChance;
+    private final float rareChance;
+    private final float legendaryChance;
 
     public HeroPack(
+        String name,
         int requiredTokens,
         int numberOfCards,
-        double commonProbability,
-        double rareProbability,
-        double legendaryProbability
+        float commonProbability,
+        float rareProbability,
+        float legendaryProbability
     ) {
+        this.name = name;
         this.requiredTokens = requiredTokens;
         this.numberOfCards = numberOfCards;
-        this.commonProbability = commonProbability;
-        this.rareProbability = rareProbability;
-        this.legendaryProbability = legendaryProbability;
-    }
-    
-    public List<Hero> open() {
-        List<Hero> cards = new ArrayList<>();
-        return cards;
+        this.commonChance = commonProbability;
+        this.rareChance = rareProbability;
+        this.legendaryChance = legendaryProbability;
     }
 
-    public int getRequiredTokens() { return requiredTokens; }
+    public String getName() {
+        return name;
+    }
+
+    public int getRequiredTokens() {
+        return requiredTokens;
+    }
+
+    public int getNumberOfCards() {
+        return numberOfCards;
+    }
+
+    public float getCommonChance() {
+        return commonChance;
+    }
+
+    public float getRareChance() {
+        return rareChance;
+    }
+
+    public float getLegendaryChance() {
+        return legendaryChance;
+    }
 
 }

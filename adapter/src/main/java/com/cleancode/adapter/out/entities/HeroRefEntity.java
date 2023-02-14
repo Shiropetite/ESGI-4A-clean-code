@@ -3,7 +3,7 @@ package com.cleancode.adapter.out.entities;
 import jakarta.persistence.*;
 
 @Entity
-@Table(name = "REF_HERO")
+@Table(name = "HERO_REF")
 public class HeroRefEntity {
 
     @Id
