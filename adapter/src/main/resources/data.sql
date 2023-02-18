@@ -16,7 +16,7 @@ values
     (30, "Assassin", "Tank"),
     (25, "Mage", "Assassin");
 
-insert into hero_pack (name, requiredTokens, numberOfCards, commonChance, rareChance, legendaryChance)
+insert into hero_pack (name, required_tokens, number_of_cards, common_chance, rare_chance, legendary_chance)
 values
     ("Argent", 1, 3, 0.75, 0.2, 0.05),
     ("Diamant", 2, 5, 0.5, 0.35, 0.15);

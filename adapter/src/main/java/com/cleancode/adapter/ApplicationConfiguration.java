@@ -2,6 +2,7 @@ package com.cleancode.adapter;
 
 import com.cleancode.adapter.out.repositories.HeroPackRepository;
 import com.cleancode.adapter.out.repositories.HeroRefRepository;
+import com.cleancode.adapter.out.repositories.HeroRepository;
 import com.cleancode.adapter.out.repositories.PlayerRepository;
 import com.cleancode.adapter.out.services.CreateHeroesPersistenceImpl;
 import com.cleancode.adapter.out.services.CreatePlayerPersistenceImpl;
@@ -36,9 +37,10 @@ public class ApplicationConfiguration {
     public OpenHeroPackPersistence openHeroPackOut(
         PlayerRepository playerRepository,
         HeroPackRepository heroPackRepository,
-        HeroRefRepository heroRefRepository
+        HeroRefRepository heroRefRepository,
+        HeroRepository heroRepository
     ) {
-        return new OpenHeroPackPersistenceImpl(playerRepository, heroPackRepository, heroRefRepository);
+        return new OpenHeroPackPersistenceImpl(playerRepository, heroPackRepository, heroRefRepository, heroRepository);
     }
 
 }

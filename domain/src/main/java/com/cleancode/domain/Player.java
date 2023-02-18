@@ -1,25 +1,19 @@
 package com.cleancode.domain;
 
+import lombok.Builder;
+import lombok.Builder.Default;
+
 import java.util.ArrayList;
 import java.util.List;
 
+@Builder
 public final class Player {
 
     private final String name;
-    private final List<Hero> deck;
-    private int tokens;
-
-    public Player(String name) {
-        this.name = name;
-        this.deck = new ArrayList<>();
-        this.tokens = 4;
-    }
-
-    public Player(String name, List<Hero> deck, int tokens) {
-        this.name = name;
-        this.deck = deck;
-        this.tokens = tokens;
-    }
+    @Default
+    private final List<Hero> deck = List.of();
+    @Default
+    private int tokens = 4;
 
     public boolean canOpenHeroPack(HeroPack pack) {
         return this.tokens > pack.getRequiredTokens();

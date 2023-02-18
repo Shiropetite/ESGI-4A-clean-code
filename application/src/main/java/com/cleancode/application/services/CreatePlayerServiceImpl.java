@@ -12,6 +12,6 @@ public class CreatePlayerServiceImpl implements CreatePlayerService {
 
     public CreatePlayerServiceImpl(CreatePlayerPersistence persistence) { this.persistence = persistence; }
 
-    public Player create(String playerName) { return this.persistence.create(new Player(playerName)); }
+    public Player create(String playerName) { return this.persistence.create(Player.builder().name(playerName).build()); }
 
 }

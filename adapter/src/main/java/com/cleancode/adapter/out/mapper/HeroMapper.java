@@ -18,6 +18,11 @@ public class HeroMapper implements Mapper<Hero, HeroEntity>, ListMapper<Hero, He
     }
 
     public Hero toDomain(HeroEntity entity) {
+        System.out.println(HeroRefMapper.get().toDomain(entity.getRef()));
+        System.out.println( HeroDuelMapper.get().toDomain(entity.getDuels()));
+        System.out.println(entity.getHealthPoints());
+        System.out.println(entity.getExperiencePoints());
+        System.out.println(entity.getLevel());
         return new Hero(
             HeroRefMapper.get().toDomain(entity.getRef()),
             HeroDuelMapper.get().toDomain(entity.getDuels()),

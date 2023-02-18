@@ -2,6 +2,7 @@ package com.cleancode.domain;
 
 import com.cleancode.domain.rarity.HeroRarity;
 import com.cleancode.domain.rarity.HeroRarityFactory;
+import lombok.Builder;
 
 public class HeroRef {
 
