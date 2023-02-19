@@ -13,8 +13,8 @@ public class CreatePlayerPersistenceImpl implements CreatePlayerPersistence {
 
     @Override
     public Player create(Player player) {
-        this.repository.save(PlayerMapper.get().toEntity(player));
-        return player;
+        var entity = this.repository.save(PlayerMapper.get().toEntity(player));
+        return PlayerMapper.get().toDomain(entity);
     }
 
 }

@@ -29,7 +29,11 @@ public class CreatePlayerServiceTest {
     @Test
     void should_create_new_player() {
         final var heroName = "Toto";
+        final var player = Player.builder()
+            .name(heroName)
+            .build();
         final var expectedPlayer = Player.builder()
+            .id(1L)
             .name(heroName)
             .build();
 
@@ -45,7 +49,7 @@ public class CreatePlayerServiceTest {
 
         assertThat(playerCaptor.getValue())
                 .usingRecursiveComparison()
-                .isEqualTo(expectedPlayer);
+                .isEqualTo(player);
 
         verifyNoMoreInteractions(persistence);
     }

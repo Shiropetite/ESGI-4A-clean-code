@@ -7,15 +7,21 @@ public class HeroRef {
 
     private final Long id;
     private final String name;
-    private final float maxHealthPoints;
-    private final float powerPoints;
-    private final float armorPoints;
+    private float maxHealthPoints;
+    private float powerPoints;
+    private float armorPoints;
     private final HeroRarity rarity;
 
     public HeroRef(Long id, String name, float maxHealthPoints, float powerPoints, float armorPoints, String rarity) {
         this.id = id;
         this.name = name;
         this.rarity = new HeroRarityFactory().create(rarity);
+        this.maxHealthPoints = maxHealthPoints;
+        this.powerPoints = powerPoints;
+        this.armorPoints = armorPoints;
+    }
+
+    public void applyRarityFactor() {
         this.maxHealthPoints = this.rarity.applyFactor(maxHealthPoints);
         this.powerPoints = this.rarity.applyFactor(powerPoints);
         this.armorPoints = this.rarity.applyFactor(armorPoints);

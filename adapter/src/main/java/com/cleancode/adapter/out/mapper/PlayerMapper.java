@@ -16,6 +16,7 @@ public class PlayerMapper implements Mapper<Player, PlayerEntity> {
 
     public Player toDomain(PlayerEntity entity) {
         return Player.builder()
+            .id(entity.getId())
             .name(entity.getName())
             .deck(HeroMapper.get().toDomain(entity.getDeck()))
             .tokens(entity.getTokens())

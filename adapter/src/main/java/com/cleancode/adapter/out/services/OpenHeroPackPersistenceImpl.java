@@ -59,8 +59,16 @@ public class OpenHeroPackPersistenceImpl implements OpenHeroPackPersistence {
 
     @Override
     public Hero create(Hero hero) {
-        this.heroRepository.save(HeroMapper.get().toEntity(hero));
-        return hero;
+        var entity = HeroMapper.get().toEntity(hero);
+        var heroRefEntity = this.heroRefRepository.findById(hero.getRef().getId());
+
+        if (heroRefEntity.isPresent()) {
+            entity.setRef(heroRefEntity.get());
+            var saveEntity = this.heroRepository.save(entity);
+            return HeroMapper.get().toDomain(saveEntity);
+        }
+
+        return null;
     }
 
 }
