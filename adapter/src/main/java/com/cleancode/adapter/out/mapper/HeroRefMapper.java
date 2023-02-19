@@ -19,6 +19,7 @@ public class HeroRefMapper implements Mapper<HeroRef, HeroRefEntity>, ListMapper
 
     public HeroRef toDomain(HeroRefEntity entity) {
         return new HeroRef(
+            entity.getId(),
             entity.getName(),
             entity.getMaxHealthPoints(),
             entity.getPowerPoints(),

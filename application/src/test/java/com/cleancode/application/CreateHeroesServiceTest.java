@@ -31,7 +31,7 @@ public class CreateHeroesServiceTest {
     @Test
     void should_create_new_heroes_ref() {
         final var expectedHeroes = List.of(
-                new HeroRef("Tank", 2000, 200, 20, "Commun")
+            new HeroRef(1L, "Tank", 2000, 200, 20, "Commun")
         );
 
         when(persistence.create(eq(expectedHeroes))).thenReturn(expectedHeroes);

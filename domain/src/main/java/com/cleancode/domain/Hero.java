@@ -7,6 +7,7 @@ import java.util.List;
 public class Hero {
 
     private static final int MAX_LEVEL = 100;
+    private final Long id;
     private final HeroRef ref;
     private final List<HeroDuel> duels;
     private float healthPoints;
@@ -14,6 +15,7 @@ public class Hero {
     private int level;
 
     public Hero(HeroRef ref) {
+        this.id = 0L;
         this.ref = ref;
         this.duels = new ArrayList<>();
         this.healthPoints = this.ref.getMaxHealthPoints();
@@ -21,7 +23,8 @@ public class Hero {
         this.level = 1;
     }
 
-    public Hero(HeroRef ref, List<HeroDuel> duels, float healthPoints, int experiencePoints, int level) {
+    public Hero(Long id, HeroRef ref, List<HeroDuel> duels, float healthPoints, int experiencePoints, int level) {
+        this.id = id;
         this.ref = ref;
         this.duels = duels;
         this.healthPoints = healthPoints;
@@ -59,6 +62,10 @@ public class Hero {
 
     public float getArmorPoints() {
         return this.ref.getArmorPoints() + this.ref.getArmorPoints() * ((level - 1) / 10);
+    }
+
+    public Long getId() {
+        return id;
     }
 
     public HeroRef getRef() {

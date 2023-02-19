@@ -19,6 +19,7 @@ public class HeroDuelMapper implements Mapper<HeroDuel, HeroDuelEntity>, ListMap
 
     public HeroDuel toDomain(HeroDuelEntity entity) {
         return new HeroDuel(
+            entity.getId(),
             HeroMapper.get().toDomain(entity.getOpponent()),
             entity.isVictory()
         );

@@ -17,6 +17,14 @@ public class HeroDuelEntity {
 
     public HeroDuelEntity() {}
 
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
     public HeroEntity getOpponent() {
         return opponent;
     }

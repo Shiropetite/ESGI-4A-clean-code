@@ -17,6 +17,7 @@ public class HeroPackMapper implements Mapper<HeroPack, HeroPackEntity> {
     @Override
     public HeroPack toDomain(HeroPackEntity entity) {
         return new HeroPack(
+            entity.getId(),
             entity.getName(),
             entity.getRequiredTokens(),
             entity.getNumberOfCards(),

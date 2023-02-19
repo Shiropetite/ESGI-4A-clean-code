@@ -32,8 +32,8 @@ public class SearchAvailableHeroesServiceTest {
     @Test
     void should_search_available_hero() {
         final var expectedHeroes = List.of(
-            new HeroRef("Tank", 2000, 200, 20, "Commun"),
-            new HeroRef("Tank", 2100, 210, 21, "Rare")
+            new HeroRef(1L, "Tank", 2000, 200, 20, "Commun"),
+            new HeroRef(2L, "Tank", 2100, 210, 21, "Rare")
         );
 
         when(persistence.search()).thenReturn(expectedHeroes);

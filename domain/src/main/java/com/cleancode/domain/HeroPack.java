@@ -2,6 +2,7 @@ package com.cleancode.domain;
 
 public class HeroPack {
 
+    private final Long id;
     private final String name;
     private final int requiredTokens;
     private final int numberOfCards;
@@ -10,6 +11,7 @@ public class HeroPack {
     private final float legendaryChance;
 
     public HeroPack(
+        Long id,
         String name,
         int requiredTokens,
         int numberOfCards,
@@ -17,12 +19,17 @@ public class HeroPack {
         float rareProbability,
         float legendaryProbability
     ) {
+        this.id = id;
         this.name = name;
         this.requiredTokens = requiredTokens;
         this.numberOfCards = numberOfCards;
         this.commonChance = commonProbability;
         this.rareChance = rareProbability;
         this.legendaryChance = legendaryProbability;
+    }
+
+    public Long getId() {
+        return id;
     }
 
     public String getName() {

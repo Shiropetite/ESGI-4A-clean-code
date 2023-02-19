@@ -26,6 +26,14 @@ public class HeroEntity {
 
     public HeroEntity() {}
 
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
     public HeroRefEntity getRef() {
         return ref;
     }

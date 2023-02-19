@@ -30,21 +30,25 @@ public class OpenHeroPackServiceImpl implements OpenHeroPackService {
         for (int i = 0; i < pack.getNumberOfCards(); i++) {
             var roll = Math.random();
             if (roll < pack.getLegendaryChance()) {
-                var createdHero = this.persistence.create(new Hero(this.persistence.findRandomHeroRefByRarity(new HeroLegendaryRarity().getName())));
-                heroes.add(createdHero);
+                heroes.add(
+                    this.persistence.create(new Hero(
+                        this.persistence.findRandomHeroRefByRarity(new HeroLegendaryRarity().getName())
+                )));
             }
             else if (roll < pack.getLegendaryChance() + pack.getRareChance()) {
-                var createdHero = this.persistence.create(new Hero(this.persistence.findRandomHeroRefByRarity(new HeroRareRarity().getName())));
-                heroes.add(createdHero);
+                heroes.add(
+                    this.persistence.create(new Hero(
+                        this.persistence.findRandomHeroRefByRarity(new HeroRareRarity().getName())
+                )));
             }
             else if (roll < pack.getLegendaryChance() + pack.getRareChance() + pack.getCommonChance()) {
-                var createdHero = this.persistence.create(new Hero(this.persistence.findRandomHeroRefByRarity(new HeroCommonRarity().getName())));
-                heroes.add(createdHero);
+                heroes.add(
+                    this.persistence.create(new Hero(
+                        this.persistence.findRandomHeroRefByRarity(new HeroCommonRarity().getName())
+                )));
             }
         }
-
         player.openHeroPack(pack, heroes);
-
         return heroes;
     }
 
