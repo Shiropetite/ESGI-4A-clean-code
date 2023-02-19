@@ -12,6 +12,12 @@ public class CreatePlayerServiceImpl implements CreatePlayerService {
 
     public CreatePlayerServiceImpl(CreatePlayerPersistence persistence) { this.persistence = persistence; }
 
-    public Player create(String playerName) { return this.persistence.create(Player.builder().name(playerName).build()); }
+    public Player create(String playerName) {
+        var playerWithSameName = this.persistence.findByName(playerName);
+        if (playerWithSameName != null) {
+            throw new RuntimeException("Le joueur " + playerName + " existe déjà");
+        }
+        return this.persistence.create(Player.builder().name(playerName).build());
+    }
 
 }

@@ -2,6 +2,7 @@ package com.cleancode.adapter.in;
 
 import com.cleancode.application.ports.in.OpenHeroPackService;
 import com.cleancode.domain.Hero;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -15,11 +16,17 @@ public class OpenHeroPackController {
     public OpenHeroPackController(OpenHeroPackService service) { this.service = service; }
 
     @PutMapping("/{playerId}/{heroPackId}")
-    public List<Hero> openPack(
+    public ResponseEntity openPack(
         @PathVariable Long playerId,
         @PathVariable Long heroPackId
     ) {
-        return this.service.open(playerId, heroPackId);
+        try {
+            var heroes = this.service.open(playerId, heroPackId);
+            return ResponseEntity.ok().body(heroes);
+        }
+        catch (RuntimeException e) {
+            return ResponseEntity.badRequest().body(e.getMessage());
+        }
     }
 
 }

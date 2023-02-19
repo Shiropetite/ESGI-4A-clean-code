@@ -13,6 +13,8 @@ public interface OpenHeroPackPersistence {
 
     HeroRef findRandomHeroRefByRarity(String heroRarityName);
 
-    Hero create(Hero hero);
+    Hero createHero(Hero hero);
+
+    void savePlayerDeck(Player player);
 
 }

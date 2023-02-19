@@ -17,4 +17,5 @@ public class SearchAvailableHeroesServiceImpl implements SearchAvailableHeroesSe
     public List<HeroRef> search() {
         return this.persistence.search();
     }
+
 }

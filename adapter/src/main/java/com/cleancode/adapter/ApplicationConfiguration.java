@@ -4,14 +4,8 @@ import com.cleancode.adapter.out.repositories.HeroPackRepository;
 import com.cleancode.adapter.out.repositories.HeroRefRepository;
 import com.cleancode.adapter.out.repositories.HeroRepository;
 import com.cleancode.adapter.out.repositories.PlayerRepository;
-import com.cleancode.adapter.out.services.CreateHeroesPersistenceImpl;
-import com.cleancode.adapter.out.services.CreatePlayerPersistenceImpl;
-import com.cleancode.adapter.out.services.OpenHeroPackPersistenceImpl;
-import com.cleancode.adapter.out.services.SearchAvailableHeroesPersistenceImpl;
-import com.cleancode.application.ports.out.CreateHeroesPersistence;
-import com.cleancode.application.ports.out.CreatePlayerPersistence;
-import com.cleancode.application.ports.out.OpenHeroPackPersistence;
-import com.cleancode.application.ports.out.SearchAvailableHeroesPersistence;
+import com.cleancode.adapter.out.services.*;
+import com.cleancode.application.ports.out.*;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
@@ -41,6 +35,11 @@ public class ApplicationConfiguration {
         HeroRepository heroRepository
     ) {
         return new OpenHeroPackPersistenceImpl(playerRepository, heroPackRepository, heroRefRepository, heroRepository);
+    }
+
+    @Bean
+    public SearchPlayerPersistence searchPlayerOut(PlayerRepository playerRepository) {
+        return new SearchPlayerPersistenceImpl(playerRepository);
     }
 
 }

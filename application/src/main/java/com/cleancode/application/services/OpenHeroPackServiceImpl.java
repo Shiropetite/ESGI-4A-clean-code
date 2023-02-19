@@ -20,10 +20,17 @@ public class OpenHeroPackServiceImpl implements OpenHeroPackService {
 
     public List<Hero> open(Long playerId, Long heroPackId) {
         var player = this.persistence.findPlayerById(playerId);
+        if (player == null) {
+            throw new RuntimeException("Le joueur " + playerId + " n'existe pas");
+        }
+
         var pack = this.persistence.findHeroPackById(heroPackId);
+        if (pack == null) {
+            throw new RuntimeException("Le pack " + heroPackId + " n'existe pas");
+        }
 
         if (!(player.canOpenHeroPack(pack))) {
-            throw new RuntimeException("Le joueur " + playerId + "n'a pas assez de token pour ouvrir le pack " + heroPackId);
+            throw new RuntimeException("Le joueur " + playerId + " n'a pas assez de tokens pour ouvrir le pack " + heroPackId);
         }
 
         var heroes = new ArrayList<Hero>();
@@ -31,24 +38,25 @@ public class OpenHeroPackServiceImpl implements OpenHeroPackService {
             var roll = Math.random();
             if (roll < pack.getLegendaryChance()) {
                 heroes.add(
-                    this.persistence.create(new Hero(
+                    this.persistence.createHero(new Hero(
                         this.persistence.findRandomHeroRefByRarity(new HeroLegendaryRarity().getName())
                 )));
             }
             else if (roll < pack.getLegendaryChance() + pack.getRareChance()) {
                 heroes.add(
-                    this.persistence.create(new Hero(
+                    this.persistence.createHero(new Hero(
                         this.persistence.findRandomHeroRefByRarity(new HeroRareRarity().getName())
                 )));
             }
             else if (roll < pack.getLegendaryChance() + pack.getRareChance() + pack.getCommonChance()) {
                 heroes.add(
-                    this.persistence.create(new Hero(
+                    this.persistence.createHero(new Hero(
                         this.persistence.findRandomHeroRefByRarity(new HeroCommonRarity().getName())
                 )));
             }
         }
         player.openHeroPack(pack, heroes);
+        this.persistence.savePlayerDeck(player);
         return heroes;
     }
 

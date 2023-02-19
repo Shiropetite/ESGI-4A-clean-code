@@ -1,5 +1,6 @@
 package com.cleancode.adapter.out.services;
 
+import com.cleancode.adapter.out.entities.HeroEntity;
 import com.cleancode.adapter.out.mapper.HeroMapper;
 import com.cleancode.adapter.out.mapper.HeroPackMapper;
 import com.cleancode.adapter.out.mapper.HeroRefMapper;
@@ -14,6 +15,7 @@ import com.cleancode.domain.HeroPack;
 import com.cleancode.domain.HeroRef;
 import com.cleancode.domain.Player;
 
+import java.util.ArrayList;
 import java.util.Random;
 
 public class OpenHeroPackPersistenceImpl implements OpenHeroPackPersistence {
@@ -37,18 +39,16 @@ public class OpenHeroPackPersistenceImpl implements OpenHeroPackPersistence {
 
     @Override
     public Player findPlayerById(Long id) {
-        if (this.playerRepository.findById(id).isPresent()) {
-            return PlayerMapper.get().toDomain(this.playerRepository.findById(id).get());
-        }
-        return null;
+        return this.playerRepository.findById(id)
+            .map(playerEntity -> PlayerMapper.get().toDomain(playerEntity))
+            .orElse(null);
     }
 
     @Override
     public HeroPack findHeroPackById(Long id) {
-        if (this.heroPackRepository.findById(id).isPresent()) {
-            return HeroPackMapper.get().toDomain(this.heroPackRepository.findById(id).get());
-        }
-        return null;
+        return this.heroPackRepository.findById(id)
+            .map(heroPackEntity -> HeroPackMapper.get().toDomain(heroPackEntity))
+            .orElse(null);
     }
 
     @Override
@@ -58,17 +58,28 @@ public class OpenHeroPackPersistenceImpl implements OpenHeroPackPersistence {
     }
 
     @Override
-    public Hero create(Hero hero) {
-        var entity = HeroMapper.get().toEntity(hero);
+    public Hero createHero(Hero hero) {
         var heroRefEntity = this.heroRefRepository.findById(hero.getRef().getId());
-
         if (heroRefEntity.isPresent()) {
-            entity.setRef(heroRefEntity.get());
-            var saveEntity = this.heroRepository.save(entity);
-            return HeroMapper.get().toDomain(saveEntity);
+            var heroEntity = HeroMapper.get().toEntity(hero);
+            heroEntity.setRef(heroRefEntity.get());
+            return HeroMapper.get().toDomain(this.heroRepository.save(heroEntity));
         }
-
         return null;
+    }
+
+    @Override
+    public void savePlayerDeck(Player player) {
+        var playerEntity = this.playerRepository.findById(player.getId());
+        if (playerEntity.isPresent()) {
+            var heroEntities = new ArrayList<HeroEntity>();
+            for (Hero hero : player.getDeck()) {
+                var heroEntity = this.heroRepository.findById(hero.getId());
+                heroEntity.ifPresent(heroEntities::add);
+            }
+            playerEntity.get().setDeck(heroEntities);
+            this.playerRepository.save(playerEntity.get());
+        }
     }
 
 }
