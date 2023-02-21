@@ -4,8 +4,8 @@ import com.cleancode.domain.Player;
 
 public interface CreatePlayerPersistence {
 
-    Player create(Player player);
-
     Player findByName(String playerName);
+
+    Player create(Player player);
 
 }

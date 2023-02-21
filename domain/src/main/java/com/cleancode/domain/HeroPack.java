@@ -1,6 +1,6 @@
 package com.cleancode.domain;
 
-public class HeroPack {
+public final class HeroPack {
 
     private final Long id;
     private final String name;

@@ -1,7 +1,6 @@
 package com.cleancode.adapter.in;
 
 import com.cleancode.application.ports.in.SearchPlayerService;
-import com.cleancode.domain.Player;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;

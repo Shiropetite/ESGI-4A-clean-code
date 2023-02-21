@@ -1,9 +1,6 @@
 package com.cleancode.adapter;
 
-import com.cleancode.adapter.out.repositories.HeroPackRepository;
-import com.cleancode.adapter.out.repositories.HeroRefRepository;
-import com.cleancode.adapter.out.repositories.HeroRepository;
-import com.cleancode.adapter.out.repositories.PlayerRepository;
+import com.cleancode.adapter.out.repositories.*;
 import com.cleancode.adapter.out.services.*;
 import com.cleancode.application.ports.out.*;
 import org.springframework.context.annotation.Bean;
@@ -34,12 +31,32 @@ public class ApplicationConfiguration {
         HeroRefRepository heroRefRepository,
         HeroRepository heroRepository
     ) {
-        return new OpenHeroPackPersistenceImpl(playerRepository, heroPackRepository, heroRefRepository, heroRepository);
+        return new OpenHeroPackPersistenceImpl(
+            playerRepository,
+            heroPackRepository,
+            heroRefRepository,
+            heroRepository
+        );
     }
 
     @Bean
     public SearchPlayerPersistence searchPlayerOut(PlayerRepository playerRepository) {
         return new SearchPlayerPersistenceImpl(playerRepository);
+    }
+
+    @Bean
+    public DuelHeroesPersistence duelHeroesOut(
+        PlayerRepository playerRepository,
+        HeroRepository heroRepository,
+        HeroDuelRepository heroDuelRepository,
+        HeroBonusRepository heroBonusRepository
+    ) {
+        return new DuelHeroesPersistenceImpl(
+            playerRepository,
+            heroRepository,
+            heroDuelRepository,
+            heroBonusRepository
+        );
     }
 
 }

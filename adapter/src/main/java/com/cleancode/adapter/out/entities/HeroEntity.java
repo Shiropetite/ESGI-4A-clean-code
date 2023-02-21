@@ -18,9 +18,7 @@ public class HeroEntity {
     @OneToMany()
     private List<HeroDuelEntity> duels;
 
-    private float healthPoints;
-
-    private int experiencePoints;
+    private int xp;
 
     private int level;
 
@@ -50,20 +48,12 @@ public class HeroEntity {
         this.duels = duels;
     }
 
-    public float getHealthPoints() {
-        return healthPoints;
+    public int getXp() {
+        return xp;
     }
 
-    public void setHealthPoints(float healthPoints) {
-        this.healthPoints = healthPoints;
-    }
-
-    public int getExperiencePoints() {
-        return experiencePoints;
-    }
-
-    public void setExperiencePoints(int experiencePoints) {
-        this.experiencePoints = experiencePoints;
+    public void setXp(int xp) {
+        this.xp = xp;
     }
 
     public int getLevel() {
@@ -73,4 +63,5 @@ public class HeroEntity {
     public void setLevel(int level) {
         this.level = level;
     }
+
 }

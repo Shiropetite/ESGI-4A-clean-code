@@ -52,4 +52,5 @@ public class PlayerEntity {
     public void setTokens(int numberOfTokens) {
         this.tokens = numberOfTokens;
     }
+
 }

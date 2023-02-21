@@ -3,7 +3,6 @@ package com.cleancode.adapter.out.mapper;
 import com.cleancode.adapter.out.entities.HeroEntity;
 import com.cleancode.adapter.out.entities.HeroRefEntity;
 import com.cleancode.domain.Hero;
-import com.cleancode.domain.HeroRef;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -24,8 +23,7 @@ public class HeroMapper implements Mapper<Hero, HeroEntity>, ListMapper<Hero, He
             entity.getId(),
             HeroRefMapper.get().toDomain(entity.getRef()),
             HeroDuelMapper.get().toDomain(entity.getDuels()),
-            entity.getHealthPoints(),
-            entity.getExperiencePoints(),
+            entity.getXp(),
             entity.getLevel()
         );
     }
@@ -34,8 +32,7 @@ public class HeroMapper implements Mapper<Hero, HeroEntity>, ListMapper<Hero, He
         HeroEntity entity = new HeroEntity();
         entity.setRef(HeroRefMapper.get().toEntity(domain.getRef()));
         entity.setDuels(HeroDuelMapper.get().toEntity(domain.getDuels()));
-        entity.setHealthPoints(domain.getHealthPoints());
-        entity.setExperiencePoints(domain.getExperiencePoints());
+        entity.setXp(domain.getXp());
         entity.setLevel(domain.getLevel());
         return entity;
     }
@@ -44,8 +41,7 @@ public class HeroMapper implements Mapper<Hero, HeroEntity>, ListMapper<Hero, He
         HeroEntity entity = new HeroEntity();
         entity.setRef(refEntity);
         entity.setDuels(HeroDuelMapper.get().toEntity(domain.getDuels()));
-        entity.setHealthPoints(domain.getHealthPoints());
-        entity.setExperiencePoints(domain.getExperiencePoints());
+        entity.setXp(domain.getXp());
         entity.setLevel(domain.getLevel());
         return entity;
     }

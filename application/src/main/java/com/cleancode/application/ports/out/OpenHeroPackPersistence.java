@@ -15,6 +15,6 @@ public interface OpenHeroPackPersistence {
 
     Hero createHero(Hero hero);
 
-    void savePlayerDeck(Player player);
+    void updatePlayer(Player player);
 
 }

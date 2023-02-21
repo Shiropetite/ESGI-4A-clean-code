@@ -67,4 +67,5 @@ public class HeroRefEntity {
     public void setRarity(String rarity) {
         this.rarity = rarity;
     }
+
 }

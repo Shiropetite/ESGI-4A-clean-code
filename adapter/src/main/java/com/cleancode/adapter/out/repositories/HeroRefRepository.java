@@ -9,6 +9,6 @@ import java.util.List;
 @Repository
 public interface HeroRefRepository extends JpaRepository<HeroRefEntity, Long> {
 
-    List<HeroRefEntity> findByRarity(String rarity);
+    List<HeroRefEntity> findHeroRefEntityByRarity(String rarity);
 
 }

@@ -3,65 +3,59 @@ package com.cleancode.domain;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
-public class Hero {
+public final class Hero {
 
     private static final int MAX_LEVEL = 100;
     private final Long id;
     private final HeroRef ref;
     private final List<HeroDuel> duels;
-    private float healthPoints;
-    private int experiencePoints;
+    private int xp;
     private int level;
 
     public Hero(HeroRef ref) {
         this.id = 0L;
         this.ref = ref;
         this.duels = new ArrayList<>();
-        this.healthPoints = this.ref.getMaxHealthPoints();
-        this.experiencePoints = 0;
+        this.xp = 0;
         this.level = 1;
     }
 
-    public Hero(Long id, HeroRef ref, List<HeroDuel> duels, float healthPoints, int experiencePoints, int level) {
+    public Hero(Long id, HeroRef ref, List<HeroDuel> duels, int experiencePoints, int level) {
         this.id = id;
         this.ref = ref;
         this.duels = duels;
-        this.healthPoints = healthPoints;
-        this.experiencePoints = experiencePoints;
+        this.xp = experiencePoints;
         this.level = level;
     }
 
-    public void gainExp() {
-        this.experiencePoints++;
-        if (this.experiencePoints % 5 == 0) {
+    public boolean canDuel(Hero opponent) {
+        return opponent.level >= this.level;
+    }
+
+    public void gainXp() {
+        this.xp++;
+        if (this.xp % 5 == 0) {
             this.levelUp();
         }
     }
 
-    private void levelUp() {
+    public void levelUp() {
         if (this.level == MAX_LEVEL) { throw new RuntimeException("Le niveau maximal est déjà atteint"); }
         this.level++;
     }
 
-    public void heal() {
-        this.healthPoints = this.getMaxHealthPoints();
-    }
-
-    public void attack(Hero opponent) {
-        opponent.healthPoints += this.getArmorPoints() - this.getPowerPoints();
-    }
-
     public float getMaxHealthPoints() {
-        return this.ref.getMaxHealthPoints() + this.ref.getMaxHealthPoints() * ((level - 1) / 10);
+        return this.ref.getMaxHealthPoints() + (this.ref.getMaxHealthPoints() * ((level - 1) / 10f));
     }
 
     public float getPowerPoints() {
-        return this.ref.getPowerPoints() + this.ref.getPowerPoints() * ((level - 1) / 10);
+        return this.ref.getPowerPoints() + (this.ref.getPowerPoints() * ((level - 1) / 10f));
     }
 
     public float getArmorPoints() {
-        return this.ref.getArmorPoints() + this.ref.getArmorPoints() * ((level - 1) / 10);
+        return this.ref.getArmorPoints() + (this.ref.getArmorPoints() * ((level - 1) / 10f));
     }
 
     public Long getId() {
@@ -76,28 +70,25 @@ public class Hero {
         return duels;
     }
 
-    public float getHealthPoints() {
-        return healthPoints;
-    }
-
-    public void setHealthPoints(float healthPoints) {
-        this.healthPoints = healthPoints;
-    }
-
-    public int getExperiencePoints() {
-        return experiencePoints;
-    }
-
-    public void setExperiencePoints(int experiencePoints) {
-        this.experiencePoints = experiencePoints;
+    public int getXp() {
+        return xp;
     }
 
     public int getLevel() {
         return level;
     }
 
-    public void setLevel(int level) {
-        this.level = level;
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Hero hero = (Hero) o;
+        return id.equals(hero.id);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id);
     }
 
 }

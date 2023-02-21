@@ -6,6 +6,12 @@ public final class HeroDuel {
     private final Hero opponent;
     private final boolean victory;
 
+    public HeroDuel(Hero opponent, boolean victory) {
+        this.id = 0L;
+        this.opponent = opponent;
+        this.victory = victory;
+    }
+
     public HeroDuel(Long id, Hero opponent, boolean victory) {
         this.id = id;
         this.opponent = opponent;

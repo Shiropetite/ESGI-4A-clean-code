@@ -3,7 +3,7 @@ package com.cleancode.domain;
 import com.cleancode.domain.rarity.HeroRarity;
 import com.cleancode.domain.rarity.HeroRarityFactory;
 
-public class HeroRef {
+public final class HeroRef {
 
     private final Long id;
     private final String name;

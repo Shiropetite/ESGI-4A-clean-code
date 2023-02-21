@@ -13,7 +13,7 @@ public class SearchPlayerPersistenceImpl implements SearchPlayerPersistence {
 
     @Override
     public Player findByName(String playerName) {
-        return this.repository.findByName(playerName)
+        return this.repository.findPlayerEntityByName(playerName)
             .map(playerEntity -> PlayerMapper.get().toDomain(playerEntity))
             .orElse(null);
     }

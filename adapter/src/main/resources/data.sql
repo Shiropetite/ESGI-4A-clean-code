@@ -20,3 +20,8 @@ insert into hero_pack (name, required_tokens, number_of_cards, common_chance, ra
 values
     ("Argent", 1, 3, 0.75, 0.2, 0.05),
     ("Diamant", 2, 5, 0.5, 0.35, 0.15);
+
+insert into player (name, tokens)
+values
+    ("Toto", 4),
+    ("Titi", 4);

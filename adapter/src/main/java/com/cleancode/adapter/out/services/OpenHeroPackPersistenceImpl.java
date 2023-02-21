@@ -53,7 +53,9 @@ public class OpenHeroPackPersistenceImpl implements OpenHeroPackPersistence {
 
     @Override
     public HeroRef findRandomHeroRefByRarity(String heroRarityName) {
-        var heroesByRarity = HeroRefMapper.get().toDomain(this.heroRefRepository.findByRarity(heroRarityName));
+        var heroesByRarity = HeroRefMapper.get().toDomain(
+            this.heroRefRepository.findHeroRefEntityByRarity(heroRarityName)
+        );
         return heroesByRarity.get(new Random().nextInt(heroesByRarity.size()));
     }
 
@@ -69,15 +71,18 @@ public class OpenHeroPackPersistenceImpl implements OpenHeroPackPersistence {
     }
 
     @Override
-    public void savePlayerDeck(Player player) {
+    public void updatePlayer(Player player) {
         var playerEntity = this.playerRepository.findById(player.getId());
         if (playerEntity.isPresent()) {
+            playerEntity.get().setTokens(player.getTokens());
+
             var heroEntities = new ArrayList<HeroEntity>();
             for (Hero hero : player.getDeck()) {
                 var heroEntity = this.heroRepository.findById(hero.getId());
                 heroEntity.ifPresent(heroEntities::add);
             }
             playerEntity.get().setDeck(heroEntities);
+
             this.playerRepository.save(playerEntity.get());
         }
     }

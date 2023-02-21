@@ -20,15 +20,14 @@ public class OpenHeroPackServiceImpl implements OpenHeroPackService {
 
     public List<Hero> open(Long playerId, Long heroPackId) {
         var player = this.persistence.findPlayerById(playerId);
+        var pack = this.persistence.findHeroPackById(heroPackId);
+
         if (player == null) {
             throw new RuntimeException("Le joueur " + playerId + " n'existe pas");
         }
-
-        var pack = this.persistence.findHeroPackById(heroPackId);
         if (pack == null) {
             throw new RuntimeException("Le pack " + heroPackId + " n'existe pas");
         }
-
         if (!(player.canOpenHeroPack(pack))) {
             throw new RuntimeException("Le joueur " + playerId + " n'a pas assez de tokens pour ouvrir le pack " + heroPackId);
         }
@@ -55,8 +54,9 @@ public class OpenHeroPackServiceImpl implements OpenHeroPackService {
                 )));
             }
         }
+
         player.openHeroPack(pack, heroes);
-        this.persistence.savePlayerDeck(player);
+        this.persistence.updatePlayer(player);
         return heroes;
     }
 
