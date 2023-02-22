@@ -1,6 +1,8 @@
 package com.cleancode.domain;
 
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -46,14 +48,17 @@ public final class Hero {
         this.level++;
     }
 
+    @JsonIgnore
     public float getMaxHealthPoints() {
         return this.ref.getMaxHealthPoints() + (this.ref.getMaxHealthPoints() * ((level - 1) / 10f));
     }
 
+    @JsonIgnore
     public float getPowerPoints() {
         return this.ref.getPowerPoints() + (this.ref.getPowerPoints() * ((level - 1) / 10f));
     }
 
+    @JsonIgnore
     public float getArmorPoints() {
         return this.ref.getArmorPoints() + (this.ref.getArmorPoints() * ((level - 1) / 10f));
     }

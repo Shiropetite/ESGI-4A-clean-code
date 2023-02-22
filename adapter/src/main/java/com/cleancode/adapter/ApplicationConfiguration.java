@@ -59,4 +59,9 @@ public class ApplicationConfiguration {
         );
     }
 
+    @Bean
+    public SearchHeroPersistence searchHeroOut(HeroRepository heroRepository) {
+        return new SearchHeroPersistenceImpl(heroRepository);
+    }
+
 }

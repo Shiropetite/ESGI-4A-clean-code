@@ -81,8 +81,8 @@ public class DuelHeroesServiceImpl implements DuelHeroesService {
 
     private void endDuel(Hero winner, Hero loser) {
         winner.gainXp();
-        winner.getDuels().add(new HeroDuel(loser, true));
-        loser.getDuels().add(new HeroDuel(winner, false));
+        winner.getDuels().add(this.persistence.createHeroDuel(new HeroDuel(loser, true)));
+        loser.getDuels().add(this.persistence.createHeroDuel(new HeroDuel(winner, false)));
     }
 
 }

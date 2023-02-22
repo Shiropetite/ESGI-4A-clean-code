@@ -2,6 +2,7 @@ package com.cleancode.adapter.out.services;
 
 import com.cleancode.adapter.out.entities.HeroDuelEntity;
 import com.cleancode.adapter.out.mapper.HeroBonusMapper;
+import com.cleancode.adapter.out.mapper.HeroDuelMapper;
 import com.cleancode.adapter.out.mapper.HeroMapper;
 import com.cleancode.adapter.out.mapper.PlayerMapper;
 import com.cleancode.adapter.out.repositories.HeroBonusRepository;
@@ -57,19 +58,24 @@ public class DuelHeroesPersistenceImpl implements DuelHeroesPersistence {
     }
 
     @Override
+    public HeroDuel createHeroDuel(HeroDuel duel) {
+        var heroEntity = this.heroRepository.findById(duel.getOpponent().getId());
+        if (heroEntity.isPresent()) {
+            var heroDuelEntity = HeroDuelMapper.get().toEntity(duel);
+            heroDuelEntity.setOpponent(heroEntity.get());
+            return HeroDuelMapper.get().toDomain(this.heroDuelRepository.save(heroDuelEntity));
+        }
+        return null;
+    }
+
+    @Override
     public void updateHero(Hero hero) {
         var heroEntity = this.heroRepository.findById(hero.getId());
         if (heroEntity.isPresent()) {
             heroEntity.get().setXp(hero.getXp());
             heroEntity.get().setLevel(hero.getLevel());
-
-            var duelEntities = new ArrayList<HeroDuelEntity>();
-            for (HeroDuel duel : hero.getDuels()) {
-                var duelEntity = this.heroDuelRepository.findById(duel.getId());
-                duelEntity.ifPresent(duelEntities::add);
-            }
-            heroEntity.get().setDuels(duelEntities);
-
+            var heroDuelEntity = this.heroDuelRepository.findById(hero.getDuels().get(0).getId());
+            heroDuelEntity.ifPresent(duelEntity -> heroEntity.get().getDuels().add(duelEntity));
             this.heroRepository.save(heroEntity.get());
         }
     }
