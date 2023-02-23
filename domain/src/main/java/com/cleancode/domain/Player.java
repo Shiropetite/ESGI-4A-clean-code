@@ -16,16 +16,16 @@ public final class Player {
     private int tokens = 4;
 
     public boolean canOpenHeroPack(HeroPack pack) {
-        return this.tokens > pack.getRequiredTokens();
+        return this.tokens >= pack.getRequiredTokens();
     }
 
-    public void openHeroPack(HeroPack pack, List<Hero> heroes) {
-        removeTokensToOpenHeroPack(pack);
+    public void openHeroPack(int tokensRequired, List<Hero> heroes) {
+        removeTokensToOpenHeroPack(tokensRequired);
         addHeroesToDeck(heroes);
     }
 
-    private void removeTokensToOpenHeroPack(HeroPack pack) {
-        this.tokens -= pack.getRequiredTokens();
+    private void removeTokensToOpenHeroPack(int tokensToRemove) {
+        this.tokens -= tokensToRemove;
     }
 
     public void addOneToken() { this.tokens++; }

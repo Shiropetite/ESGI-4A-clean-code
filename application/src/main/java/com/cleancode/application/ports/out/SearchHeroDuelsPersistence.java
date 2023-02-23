@@ -5,7 +5,7 @@ import com.cleancode.domain.HeroDuel;
 
 import java.util.List;
 
-public interface SearchHeroPersistence {
+public interface SearchHeroDuelsPersistence {
 
     Hero findById(Long id);
 

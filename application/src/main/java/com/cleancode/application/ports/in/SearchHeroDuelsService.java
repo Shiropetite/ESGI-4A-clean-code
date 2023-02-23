@@ -4,7 +4,7 @@ import com.cleancode.domain.HeroDuel;
 
 import java.util.List;
 
-public interface SearchHeroService {
+public interface SearchHeroDuelsService {
 
     List<HeroDuel> search(Long id);
 

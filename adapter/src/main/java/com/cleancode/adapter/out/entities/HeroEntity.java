@@ -1,6 +1,7 @@
 package com.cleancode.adapter.out.entities;
 
 import jakarta.persistence.*;
+import org.hibernate.annotations.ManyToAny;
 
 @Entity
 @Table(name = "HERO")

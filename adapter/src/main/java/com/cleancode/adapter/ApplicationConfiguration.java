@@ -60,8 +60,8 @@ public class ApplicationConfiguration {
     }
 
     @Bean
-    public SearchHeroPersistence searchHeroOut(HeroRepository heroRepository, HeroDuelRepository heroDuelRepository) {
-        return new SearchHeroPersistenceImpl(heroRepository, heroDuelRepository);
+    public SearchHeroDuelsPersistence searchHeroDuelsOut(HeroRepository heroRepository, HeroDuelRepository heroDuelRepository) {
+        return new SearchHeroDuelsPersistenceImpl(heroRepository, heroDuelRepository);
     }
 
 }

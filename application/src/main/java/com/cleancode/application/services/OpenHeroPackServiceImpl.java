@@ -3,6 +3,7 @@ package com.cleancode.application.services;
 import com.cleancode.application.ports.in.OpenHeroPackService;
 import com.cleancode.application.ports.out.OpenHeroPackPersistence;
 import com.cleancode.domain.Hero;
+import com.cleancode.domain.HeroPack;
 import com.cleancode.domain.rarity.HeroCommonRarity;
 import com.cleancode.domain.rarity.HeroLegendaryRarity;
 import com.cleancode.domain.rarity.HeroRareRarity;
@@ -32,6 +33,13 @@ public class OpenHeroPackServiceImpl implements OpenHeroPackService {
             throw new RuntimeException("Le joueur " + playerId + " n'a pas assez de tokens pour ouvrir le pack " + heroPackId);
         }
 
+        var heroes = open(pack);
+        player.openHeroPack(pack.getRequiredTokens(), heroes);
+        this.persistence.updatePlayer(player);
+        return heroes;
+    }
+
+    private List<Hero> open(HeroPack pack) {
         var heroes = new ArrayList<Hero>();
         for (int i = 0; i < pack.getNumberOfCards(); i++) {
             var roll = Math.random();
@@ -44,7 +52,7 @@ public class OpenHeroPackServiceImpl implements OpenHeroPackService {
             else if (roll < pack.getLegendaryChance() + pack.getRareChance()) {
                 heroes.add(
                     this.persistence.createHero(new Hero(
-                        this.persistence.findRandomHeroRefByRarity(new HeroRareRarity().getName())
+                            this.persistence.findRandomHeroRefByRarity(new HeroRareRarity().getName())
                 )));
             }
             else if (roll < pack.getLegendaryChance() + pack.getRareChance() + pack.getCommonChance()) {
@@ -54,9 +62,6 @@ public class OpenHeroPackServiceImpl implements OpenHeroPackService {
                 )));
             }
         }
-
-        player.openHeroPack(pack, heroes);
-        this.persistence.updatePlayer(player);
         return heroes;
     }
 

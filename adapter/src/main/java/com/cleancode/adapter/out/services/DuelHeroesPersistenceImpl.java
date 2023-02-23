@@ -73,31 +73,38 @@ public class DuelHeroesPersistenceImpl implements DuelHeroesPersistence {
     }
 
     @Override
-    public void updatePlayer(Player player) {
-        var playerEntityOpt = this.playerRepository.findById(player.getId());
-
-        if (playerEntityOpt.isEmpty()) return;
-        var playerEntity = playerEntityOpt.get();
-
-        playerEntity.setTokens(player.getTokens());
-
-        this.playerRepository.save(playerEntity);
-    }
-
-    @Override
-    public List<HeroDuel> getWinDuels(Player player) {
+    public List<HeroDuel> findVictories(Player player) {
         var duels = new ArrayList<HeroDuelEntity>();
 
         for (Hero hero: player.getDeck()) {
-            var currentHeroEntity = this.heroRepository.findById(hero.getId());
-
-            if (currentHeroEntity.isEmpty()) { break; }
-
-            var winDuel = this.heroDuelRepository.findByWinner(currentHeroEntity.get());
-            duels.addAll(winDuel);
+            var heroEntity = this.heroRepository.findById(hero.getId());
+            if (heroEntity.isEmpty()) { break; }
+            var duelEntities =
+                    this.heroDuelRepository.findHeroDuelEntitiesByWinner(heroEntity.get());
+            if (duelEntities.isEmpty()) { break; }
+            duels.addAll(duelEntities.get());
         }
 
         return HeroDuelMapper.get().toDomain(duels);
+    }
+
+    @Override
+    public void updateHero(Hero hero) {
+        var heroEntity = this.heroRepository.findById(hero.getId());
+        if (heroEntity.isEmpty()) { return; }
+
+        heroEntity.get().setXp(hero.getXp());
+        heroEntity.get().setLevel(hero.getLevel());
+        this.heroRepository.save(heroEntity.get());
+    }
+
+    @Override
+    public void updatePlayer(Player player) {
+        var playerEntity = this.playerRepository.findById(player.getId());
+        if (playerEntity.isEmpty()) { return; }
+
+        playerEntity.get().setTokens(player.getTokens());
+        this.playerRepository.save(playerEntity.get());
     }
 
 }

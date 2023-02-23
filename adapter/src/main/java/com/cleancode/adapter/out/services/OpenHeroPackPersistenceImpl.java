@@ -1,6 +1,5 @@
 package com.cleancode.adapter.out.services;
 
-import com.cleancode.adapter.out.entities.HeroEntity;
 import com.cleancode.adapter.out.mapper.HeroMapper;
 import com.cleancode.adapter.out.mapper.HeroPackMapper;
 import com.cleancode.adapter.out.mapper.HeroRefMapper;
@@ -15,7 +14,6 @@ import com.cleancode.domain.HeroPack;
 import com.cleancode.domain.HeroRef;
 import com.cleancode.domain.Player;
 
-import java.util.ArrayList;
 import java.util.Random;
 
 public class OpenHeroPackPersistenceImpl implements OpenHeroPackPersistence {
@@ -62,29 +60,27 @@ public class OpenHeroPackPersistenceImpl implements OpenHeroPackPersistence {
     @Override
     public Hero createHero(Hero hero) {
         var heroRefEntity = this.heroRefRepository.findById(hero.getRef().getId());
-        if (heroRefEntity.isPresent()) {
-            var heroEntity = HeroMapper.get().toEntity(hero);
-            heroEntity.setRef(heroRefEntity.get());
-            return HeroMapper.get().toDomain(this.heroRepository.save(heroEntity));
-        }
-        return null;
+        if (heroRefEntity.isEmpty()) { return null; }
+
+        var heroEntity = HeroMapper.get().toEntity(hero);
+        heroEntity.setRef(heroRefEntity.get());
+        return HeroMapper.get().toDomain(this.heroRepository.save(heroEntity));
     }
 
     @Override
     public void updatePlayer(Player player) {
         var playerEntity = this.playerRepository.findById(player.getId());
-        if (playerEntity.isPresent()) {
-            playerEntity.get().setTokens(player.getTokens());
+        if (playerEntity.isEmpty()) { return; }
 
-            var heroEntities = new ArrayList<HeroEntity>();
-            for (Hero hero : player.getDeck()) {
-                var heroEntity = this.heroRepository.findById(hero.getId());
-                heroEntity.ifPresent(heroEntities::add);
+        playerEntity.get().setTokens(player.getTokens());
+        for (Hero hero : player.getDeck()) {
+            var heroEntity = this.heroRepository.findById(hero.getId());
+            if (heroEntity.isEmpty()) { break; }
+            if (!(playerEntity.get().getDeck().contains(heroEntity.get()))) {
+                playerEntity.get().getDeck().add(heroEntity.get());
             }
-            playerEntity.get().setDeck(heroEntities);
-
-            this.playerRepository.save(playerEntity.get());
         }
+        this.playerRepository.save(playerEntity.get());
     }
 
 }

@@ -17,8 +17,10 @@ public interface DuelHeroesPersistence {
 
     HeroDuel save(HeroDuel duel);
 
-    void updatePlayer(Player player);
+    List<HeroDuel> findVictories(Player player);
 
-    List<HeroDuel> getWinDuels(Player player);
+    void updateHero(Hero hero);
+
+    void updatePlayer(Player player);
 
 }
