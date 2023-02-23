@@ -1,4 +1,4 @@
-package com.cleancode.adapter.in;
+package com.cleancode.adapter.in.body;
 
 public class CreatePlayerRequestBody {
 

@@ -1,9 +1,11 @@
 package com.cleancode.application.ports.in;
 
-import com.cleancode.domain.Hero;
+import com.cleancode.domain.HeroDuel;
+
+import java.util.List;
 
 public interface SearchHeroService {
 
-    Hero search(Long id);
+    List<HeroDuel> search(Long id);
 
 }

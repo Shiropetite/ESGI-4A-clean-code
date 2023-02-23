@@ -16,6 +16,7 @@ import com.cleancode.domain.HeroDuel;
 import com.cleancode.domain.Player;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class DuelHeroesPersistenceImpl implements DuelHeroesPersistence {
 
@@ -58,26 +59,45 @@ public class DuelHeroesPersistenceImpl implements DuelHeroesPersistence {
     }
 
     @Override
-    public HeroDuel createHeroDuel(HeroDuel duel) {
-        var heroEntity = this.heroRepository.findById(duel.getOpponent().getId());
-        if (heroEntity.isPresent()) {
-            var heroDuelEntity = HeroDuelMapper.get().toEntity(duel);
-            heroDuelEntity.setOpponent(heroEntity.get());
-            return HeroDuelMapper.get().toDomain(this.heroDuelRepository.save(heroDuelEntity));
-        }
-        return null;
+    public HeroDuel save(HeroDuel duel) {
+        var winnerEntity = this.heroRepository.findById(duel.getWinner().getId());
+        var loserEntity = this.heroRepository.findById(duel.getLoser().getId());
+
+        if (winnerEntity.isEmpty() || loserEntity.isEmpty()) { return null; }
+
+        var heroDuelEntity = new HeroDuelEntity();
+        heroDuelEntity.setWinner(winnerEntity.get());
+        heroDuelEntity.setLoser(loserEntity.get());
+
+        return HeroDuelMapper.get().toDomain(this.heroDuelRepository.save(heroDuelEntity));
     }
 
     @Override
-    public void updateHero(Hero hero) {
-        var heroEntity = this.heroRepository.findById(hero.getId());
-        if (heroEntity.isPresent()) {
-            heroEntity.get().setXp(hero.getXp());
-            heroEntity.get().setLevel(hero.getLevel());
-            var heroDuelEntity = this.heroDuelRepository.findById(hero.getDuels().get(0).getId());
-            heroDuelEntity.ifPresent(duelEntity -> heroEntity.get().getDuels().add(duelEntity));
-            this.heroRepository.save(heroEntity.get());
+    public void updatePlayer(Player player) {
+        var playerEntityOpt = this.playerRepository.findById(player.getId());
+
+        if (playerEntityOpt.isEmpty()) return;
+        var playerEntity = playerEntityOpt.get();
+
+        playerEntity.setTokens(player.getTokens());
+
+        this.playerRepository.save(playerEntity);
+    }
+
+    @Override
+    public List<HeroDuel> getWinDuels(Player player) {
+        var duels = new ArrayList<HeroDuelEntity>();
+
+        for (Hero hero: player.getDeck()) {
+            var currentHeroEntity = this.heroRepository.findById(hero.getId());
+
+            if (currentHeroEntity.isEmpty()) { break; }
+
+            var winDuel = this.heroDuelRepository.findByWinner(currentHeroEntity.get());
+            duels.addAll(winDuel);
         }
+
+        return HeroDuelMapper.get().toDomain(duels);
     }
 
 }

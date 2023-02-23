@@ -10,10 +10,11 @@ public class HeroDuelEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @ManyToOne()
-    private HeroEntity opponent;
+    @ManyToOne
+    private HeroEntity winner;
 
-    private boolean victory;
+    @ManyToOne()
+    private HeroEntity loser;
 
     public HeroDuelEntity() {}
 
@@ -25,20 +26,19 @@ public class HeroDuelEntity {
         this.id = id;
     }
 
-    public HeroEntity getOpponent() {
-        return opponent;
+    public HeroEntity getWinner() {
+        return winner;
     }
 
-    public void setOpponent(HeroEntity enemy) {
-        this.opponent = enemy;
+    public void setWinner(HeroEntity winner) {
+        this.winner = winner;
     }
 
-    public boolean isVictory() {
-        return victory;
+    public HeroEntity getLoser() {
+        return loser;
     }
 
-    public void setVictory(boolean victory) {
-        this.victory = victory;
+    public void setLoser(HeroEntity loser) {
+        this.loser = loser;
     }
-
 }

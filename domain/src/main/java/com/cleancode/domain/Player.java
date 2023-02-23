@@ -28,6 +28,8 @@ public final class Player {
         this.tokens -= pack.getRequiredTokens();
     }
 
+    public void addOneToken() { this.tokens++; }
+
     private void addHeroesToDeck(List<Hero> heroes) {
         this.deck.addAll(heroes);
     }

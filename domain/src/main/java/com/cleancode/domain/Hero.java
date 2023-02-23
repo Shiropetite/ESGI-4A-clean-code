@@ -3,8 +3,6 @@ package com.cleancode.domain;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Objects;
 
 public final class Hero {
@@ -12,22 +10,19 @@ public final class Hero {
     private static final int MAX_LEVEL = 100;
     private final Long id;
     private final HeroRef ref;
-    private final List<HeroDuel> duels;
     private int xp;
     private int level;
 
     public Hero(HeroRef ref) {
         this.id = 0L;
         this.ref = ref;
-        this.duels = new ArrayList<>();
         this.xp = 0;
         this.level = 1;
     }
 
-    public Hero(Long id, HeroRef ref, List<HeroDuel> duels, int experiencePoints, int level) {
+    public Hero(Long id, HeroRef ref, int experiencePoints, int level) {
         this.id = id;
         this.ref = ref;
-        this.duels = duels;
         this.xp = experiencePoints;
         this.level = level;
     }
@@ -46,6 +41,11 @@ public final class Hero {
     public void levelUp() {
         if (this.level == MAX_LEVEL) { throw new RuntimeException("Le niveau maximal est déjà atteint"); }
         this.level++;
+    }
+
+    @JsonIgnore
+    public float getDamage(Hero opponent, int bonus) {
+        return this.getPowerPoints() - opponent.getArmorPoints() + bonus;
     }
 
     @JsonIgnore
@@ -69,10 +69,6 @@ public final class Hero {
 
     public HeroRef getRef() {
         return ref;
-    }
-
-    public List<HeroDuel> getDuels() {
-        return duels;
     }
 
     public int getXp() {

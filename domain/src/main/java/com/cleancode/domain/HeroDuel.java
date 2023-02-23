@@ -3,31 +3,24 @@ package com.cleancode.domain;
 public final class HeroDuel {
 
     private final Long id;
-    private final Hero opponent;
-    private final boolean victory;
+    private final Hero winner;
+    private final Hero loser;
 
-    public HeroDuel(Hero opponent, boolean victory) {
-        this.id = 0L;
-        this.opponent = opponent;
-        this.victory = victory;
-    }
-
-    public HeroDuel(Long id, Hero opponent, boolean victory) {
+    public HeroDuel(Long id, Hero winner, Hero loser) {
         this.id = id;
-        this.opponent = opponent;
-        this.victory = victory;
+        this.winner = winner;
+        this.loser = loser;
     }
 
     public Long getId() {
         return id;
     }
 
-    public Hero getOpponent() {
-        return opponent;
+    public Hero getWinner() {
+        return winner;
     }
 
-    public boolean isVictory() {
-        return victory;
+    public Hero getLoser() {
+        return loser;
     }
-
 }

@@ -5,6 +5,8 @@ import com.cleancode.domain.HeroBonus;
 import com.cleancode.domain.HeroDuel;
 import com.cleancode.domain.Player;
 
+import java.util.List;
+
 public interface DuelHeroesPersistence {
 
     Player findPlayerById(Long id);
@@ -13,8 +15,10 @@ public interface DuelHeroesPersistence {
 
     HeroBonus findHeroBonus(String strongHero, String weakHero);
 
-    HeroDuel createHeroDuel(HeroDuel duel);
+    HeroDuel save(HeroDuel duel);
 
-    void updateHero(Hero hero);
+    void updatePlayer(Player player);
+
+    List<HeroDuel> getWinDuels(Player player);
 
 }

@@ -2,8 +2,6 @@ package com.cleancode.adapter.out.entities;
 
 import jakarta.persistence.*;
 
-import java.util.List;
-
 @Entity
 @Table(name = "HERO")
 public class HeroEntity {
@@ -14,9 +12,6 @@ public class HeroEntity {
 
     @ManyToOne()
     private HeroRefEntity ref;
-
-    @OneToMany()
-    private List<HeroDuelEntity> duels;
 
     private int xp;
 
@@ -38,14 +33,6 @@ public class HeroEntity {
 
     public void setRef(HeroRefEntity refHero) {
         this.ref = refHero;
-    }
-
-    public List<HeroDuelEntity> getDuels() {
-        return duels;
-    }
-
-    public void setDuels(List<HeroDuelEntity> duels) {
-        this.duels = duels;
     }
 
     public int getXp() {

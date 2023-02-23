@@ -8,12 +8,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("/heroes")
-public class SearchHeroController {
+@RequestMapping("/hero-duels")
+public class SearchHeroDuelController {
 
     private final SearchHeroService service;
 
-    public SearchHeroController(SearchHeroService service) { this.service = service; }
+    public SearchHeroDuelController(SearchHeroService service) { this.service = service; }
 
     @GetMapping("/{heroId}")
     public ResponseEntity search(@PathVariable Long heroId) {

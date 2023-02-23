@@ -22,7 +22,6 @@ public class HeroMapper implements Mapper<Hero, HeroEntity>, ListMapper<Hero, He
         return new Hero(
             entity.getId(),
             HeroRefMapper.get().toDomain(entity.getRef()),
-            HeroDuelMapper.get().toDomain(entity.getDuels()),
             entity.getXp(),
             entity.getLevel()
         );
@@ -31,7 +30,6 @@ public class HeroMapper implements Mapper<Hero, HeroEntity>, ListMapper<Hero, He
     public HeroEntity toEntity(Hero domain) {
         HeroEntity entity = new HeroEntity();
         entity.setRef(HeroRefMapper.get().toEntity(domain.getRef()));
-        entity.setDuels(HeroDuelMapper.get().toEntity(domain.getDuels()));
         entity.setXp(domain.getXp());
         entity.setLevel(domain.getLevel());
         return entity;
@@ -40,7 +38,6 @@ public class HeroMapper implements Mapper<Hero, HeroEntity>, ListMapper<Hero, He
     public HeroEntity toEntity(Hero domain, HeroRefEntity refEntity) {
         HeroEntity entity = new HeroEntity();
         entity.setRef(refEntity);
-        entity.setDuels(HeroDuelMapper.get().toEntity(domain.getDuels()));
         entity.setXp(domain.getXp());
         entity.setLevel(domain.getLevel());
         return entity;
