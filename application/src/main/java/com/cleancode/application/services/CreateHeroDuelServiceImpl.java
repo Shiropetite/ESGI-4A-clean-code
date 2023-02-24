@@ -33,11 +33,11 @@ public class CreateHeroDuelServiceImpl implements CreateHeroDuelService {
         if (hero1 == null) {
             throw new RuntimeException("Le héros " + hero1Id + " n'existe pas");
         }
-        if (!(player1.getDeck().contains(hero1))) {
-            throw new RuntimeException("Le joueur " + player1Id + " ne possède pas le héros " + hero1Id);
-        }
         if (hero2 == null) {
             throw new RuntimeException("Le héros " + hero2Id + " n'existe pas");
+        }
+        if (!(player1.getDeck().contains(hero1))) {
+            throw new RuntimeException("Le joueur " + player1Id + " ne possède pas le héros " + hero1Id);
         }
         if (!(player2.getDeck().contains(hero2))) {
             throw new RuntimeException("Le joueur " + player2Id + " ne possède pas le héros " + hero2Id);
