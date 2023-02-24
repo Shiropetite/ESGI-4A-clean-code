@@ -51,10 +51,10 @@ public class OpenHeroPackPersistenceImpl implements OpenHeroPackPersistence {
 
     @Override
     public HeroRef findRandomHeroRefByRarity(String heroRarityName) {
-        var heroesByRarity = HeroRefMapper.get().toDomain(
-            this.heroRefRepository.findHeroRefEntityByRarity(heroRarityName)
-        );
-        return heroesByRarity.get(new Random().nextInt(heroesByRarity.size()));
+        var heroRefEntities = this.heroRefRepository.findHeroRefEntityByRarity(heroRarityName);
+        if (heroRefEntities.isEmpty()) { return null; }
+        var heroRefs = HeroRefMapper.get().toDomain(heroRefEntities.get());
+        return heroRefs.get(new Random().nextInt(heroRefs.size()));
     }
 
     @Override

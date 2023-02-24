@@ -45,13 +45,13 @@ public class ApplicationConfiguration {
     }
 
     @Bean
-    public DuelHeroesPersistence duelHeroesOut(
+    public CreateHeroDuelPersistence duelHeroesOut(
         PlayerRepository playerRepository,
         HeroRepository heroRepository,
         HeroDuelRepository heroDuelRepository,
         HeroBonusRepository heroBonusRepository
     ) {
-        return new DuelHeroesPersistenceImpl(
+        return new CreateHeroDuelPersistenceImpl(
             playerRepository,
             heroRepository,
             heroDuelRepository,

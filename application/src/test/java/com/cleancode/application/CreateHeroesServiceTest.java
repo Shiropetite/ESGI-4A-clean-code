@@ -26,28 +26,33 @@ public class CreateHeroesServiceTest {
     private CreateHeroesPersistence persistence;
 
     @Captor
-    private ArgumentCaptor<HeroRef> heroesCaptor;
+    private ArgumentCaptor<HeroRef> refsCaptor;
 
     @Test
     void should_create_new_heroes_ref() {
-        final var hero1 = new HeroRef(1L, "Tank", 2000, 200, 20, "Commun");
-        final var expectedHeroes = List.of(
-            hero1
+        final var mockRef1 = new HeroRef(
+            1L,
+            "Tank",
+            2000,
+            200,
+            20,
+            "Commun"
+        );
+        final var expectedRefs = List.of(
+            mockRef1
         );
 
-        when(persistence.create(eq(hero1))).thenReturn(hero1);
+        when(persistence.create(eq(mockRef1))).thenReturn(mockRef1);
 
-        final var actual = service.create(expectedHeroes);
-
+        final var actual = service.create(expectedRefs);
         assertThat(actual)
             .usingRecursiveComparison()
-            .isEqualTo(expectedHeroes);
+            .isEqualTo(expectedRefs);
 
-        verify(persistence).create(heroesCaptor.capture());
-
-        assertThat(heroesCaptor.getValue())
-                .usingRecursiveComparison()
-                .isEqualTo(hero1);
+        verify(persistence).create(refsCaptor.capture());
+        assertThat(refsCaptor.getValue())
+            .usingRecursiveComparison()
+            .isEqualTo(mockRef1);
 
         verifyNoMoreInteractions(persistence);
     }

@@ -15,17 +15,17 @@ public final class HeroPack {
         String name,
         int requiredTokens,
         int numberOfCards,
-        float commonProbability,
-        float rareProbability,
-        float legendaryProbability
+        float commonChance,
+        float rareChance,
+        float legendaryChance
     ) {
         this.id = id;
         this.name = name;
         this.requiredTokens = requiredTokens;
         this.numberOfCards = numberOfCards;
-        this.commonChance = commonProbability;
-        this.rareChance = rareProbability;
-        this.legendaryChance = legendaryProbability;
+        this.commonChance = commonChance;
+        this.rareChance = rareChance;
+        this.legendaryChance = legendaryChance;
     }
 
     public Long getId() {

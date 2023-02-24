@@ -33,13 +33,13 @@ public class OpenHeroPackServiceImpl implements OpenHeroPackService {
             throw new RuntimeException("Le joueur " + playerId + " n'a pas assez de tokens pour ouvrir le pack " + heroPackId);
         }
 
-        var heroes = open(pack);
+        var heroes = this.roll(pack);
         player.openHeroPack(pack.getRequiredTokens(), heroes);
         this.persistence.updatePlayer(player);
         return heroes;
     }
 
-    private List<Hero> open(HeroPack pack) {
+    private List<Hero> roll(HeroPack pack) {
         var heroes = new ArrayList<Hero>();
         for (int i = 0; i < pack.getNumberOfCards(); i++) {
             var roll = Math.random();

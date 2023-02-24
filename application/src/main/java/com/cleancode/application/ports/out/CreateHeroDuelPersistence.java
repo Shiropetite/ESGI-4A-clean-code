@@ -7,7 +7,7 @@ import com.cleancode.domain.Player;
 
 import java.util.List;
 
-public interface DuelHeroesPersistence {
+public interface CreateHeroDuelPersistence {
 
     Player findPlayerById(Long id);
 

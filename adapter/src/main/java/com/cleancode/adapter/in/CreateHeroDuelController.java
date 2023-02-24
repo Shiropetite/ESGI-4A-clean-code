@@ -1,22 +1,22 @@
 package com.cleancode.adapter.in;
 
 import com.cleancode.adapter.in.body.DuelHeroesRequestBody;
-import com.cleancode.application.ports.in.DuelHeroesService;
+import com.cleancode.application.ports.in.CreateHeroDuelService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/heroes")
-public class DuelHeroesController {
+public class CreateHeroDuelController {
 
-    private final DuelHeroesService service;
+    private final CreateHeroDuelService service;
 
-    public DuelHeroesController(DuelHeroesService service) { this.service = service; }
+    public CreateHeroDuelController(CreateHeroDuelService service) { this.service = service; }
 
     @PutMapping()
-    public ResponseEntity search(@RequestBody DuelHeroesRequestBody duelSettings) {
+    public ResponseEntity create(@RequestBody DuelHeroesRequestBody duelSettings) {
         try {
-            var duel = this.service.duel(
+            var duel = this.service.create(
                 duelSettings.player1Id,
                 duelSettings.hero1Id,
                 duelSettings.player2Id,

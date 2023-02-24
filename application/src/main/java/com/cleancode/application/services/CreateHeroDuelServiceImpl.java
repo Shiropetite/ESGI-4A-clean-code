@@ -1,21 +1,21 @@
 package com.cleancode.application.services;
 
-import com.cleancode.application.ports.in.DuelHeroesService;
-import com.cleancode.application.ports.out.DuelHeroesPersistence;
+import com.cleancode.application.ports.in.CreateHeroDuelService;
+import com.cleancode.application.ports.out.CreateHeroDuelPersistence;
 import com.cleancode.domain.Hero;
 import com.cleancode.domain.HeroDuel;
 import com.cleancode.domain.Player;
 import org.springframework.stereotype.Service;
 
 @Service
-public class DuelHeroesServiceImpl implements DuelHeroesService {
+public class CreateHeroDuelServiceImpl implements CreateHeroDuelService {
 
-    private final DuelHeroesPersistence persistence;
+    private final CreateHeroDuelPersistence persistence;
 
-    public DuelHeroesServiceImpl(DuelHeroesPersistence persistence) { this.persistence = persistence; }
+    public CreateHeroDuelServiceImpl(CreateHeroDuelPersistence persistence) { this.persistence = persistence; }
 
     @Override
-    public HeroDuel duel(Long player1Id, Long hero1Id, Long player2Id, Long hero2Id) {
+    public HeroDuel create(Long player1Id, Long hero1Id, Long player2Id, Long hero2Id) {
         var player1 = this.persistence.findPlayerById(player1Id);
         var hero1 = this.persistence.findHeroById(hero1Id);
         var player2 = this.persistence.findPlayerById(player2Id);
@@ -26,6 +26,9 @@ public class DuelHeroesServiceImpl implements DuelHeroesService {
         }
         if (player2 == null) {
             throw new RuntimeException("Le joueur " + player2Id + " n'existe pas");
+        }
+        if (player1.equals(player2)) {
+            throw new RuntimeException("Un joueur ne peut pas s'affronter lui-même");
         }
         if (hero1 == null) {
             throw new RuntimeException("Le héros " + hero1Id + " n'existe pas");

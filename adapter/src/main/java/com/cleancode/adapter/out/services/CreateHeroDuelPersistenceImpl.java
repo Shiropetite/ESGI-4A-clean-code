@@ -9,7 +9,7 @@ import com.cleancode.adapter.out.repositories.HeroBonusRepository;
 import com.cleancode.adapter.out.repositories.HeroDuelRepository;
 import com.cleancode.adapter.out.repositories.HeroRepository;
 import com.cleancode.adapter.out.repositories.PlayerRepository;
-import com.cleancode.application.ports.out.DuelHeroesPersistence;
+import com.cleancode.application.ports.out.CreateHeroDuelPersistence;
 import com.cleancode.domain.Hero;
 import com.cleancode.domain.HeroBonus;
 import com.cleancode.domain.HeroDuel;
@@ -18,14 +18,14 @@ import com.cleancode.domain.Player;
 import java.util.ArrayList;
 import java.util.List;
 
-public class DuelHeroesPersistenceImpl implements DuelHeroesPersistence {
+public class CreateHeroDuelPersistenceImpl implements CreateHeroDuelPersistence {
 
     private final PlayerRepository playerRepository;
     private final HeroRepository heroRepository;
     private final HeroDuelRepository heroDuelRepository;
     private final HeroBonusRepository heroBonusRepository;
 
-    public DuelHeroesPersistenceImpl(
+    public CreateHeroDuelPersistenceImpl(
         PlayerRepository playerRepository,
         HeroRepository heroRepository,
         HeroDuelRepository heroDuelRepository,

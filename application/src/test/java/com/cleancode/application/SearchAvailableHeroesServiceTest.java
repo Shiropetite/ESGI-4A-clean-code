@@ -30,19 +30,18 @@ public class SearchAvailableHeroesServiceTest {
     private SearchAvailableHeroesPersistence persistence;
 
     @Test
-    void should_search_available_hero() {
+    void should_search_available_heroes_ref() {
         final var expectedHeroes = List.of(
-            new HeroRef(1L, "Tank", 2000, 200, 20, "Commun"),
-            new HeroRef(2L, "Tank", 2100, 210, 21, "Rare")
+            new HeroRef(1L, "Tank", 1200, 120, 22, "Légendaire"),
+            new HeroRef(2L, "Mage", 700, 150, 10, "Commun")
         );
 
         when(persistence.search()).thenReturn(expectedHeroes);
 
         final var actual = service.search();
-
         assertThat(actual)
-                .usingRecursiveComparison()
-                .isEqualTo(expectedHeroes);
+            .usingRecursiveComparison()
+            .isEqualTo(expectedHeroes);
 
         verifyNoMoreInteractions(persistence);
     }
