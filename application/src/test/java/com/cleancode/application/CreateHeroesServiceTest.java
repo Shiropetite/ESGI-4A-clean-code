@@ -42,14 +42,14 @@ public class CreateHeroesServiceTest {
             mockRef1
         );
 
-        when(persistence.create(eq(mockRef1))).thenReturn(mockRef1);
+        when(persistence.createHeroRef(eq(mockRef1))).thenReturn(mockRef1);
 
         final var actual = service.create(expectedRefs);
         assertThat(actual)
             .usingRecursiveComparison()
             .isEqualTo(expectedRefs);
 
-        verify(persistence).create(refsCaptor.capture());
+        verify(persistence).createHeroRef(refsCaptor.capture());
         assertThat(refsCaptor.getValue())
             .usingRecursiveComparison()
             .isEqualTo(mockRef1);

@@ -15,11 +15,11 @@ public class SearchHeroDuelsServiceImpl implements SearchHeroDuelsService {
     public SearchHeroDuelsServiceImpl(SearchHeroDuelsPersistence persistence) { this.persistence = persistence; }
 
     public List<HeroDuel> search(Long id) {
-        var hero = this.persistence.findById(id);
+        final var hero = this.persistence.findHeroById(id);
         if (hero == null) {
             throw new RuntimeException("Le héros " + id + " n'existe pas");
         }
-        return this.persistence.findHeroDuels(hero);
+        return this.persistence.findHeroDuelsByHero(hero);
     }
 
 }

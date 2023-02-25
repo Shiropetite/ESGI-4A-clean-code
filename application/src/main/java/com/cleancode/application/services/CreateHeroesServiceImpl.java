@@ -16,11 +16,11 @@ public class CreateHeroesServiceImpl implements CreateHeroesService {
     public CreateHeroesServiceImpl(CreateHeroesPersistence persistence) { this.persistence = persistence; }
 
     public List<HeroRef> create(List<HeroRef> heroes) {
-        var saveHeroes = new ArrayList<HeroRef>();
+        final var saveHeroes = new ArrayList<HeroRef>();
 
         for (HeroRef hero: heroes) {
             hero.applyRarityFactor();
-            var saveHero = this.persistence.create(hero);
+            final var saveHero = this.persistence.createHeroRef(hero);
             saveHeroes.add(saveHero);
         }
 

@@ -28,20 +28,20 @@ public class SearchPlayerServiceTest {
     private ArgumentCaptor<String> playerNameCaptor;
 
     @Test
-    void should_search_player() {
+    public void should_search_player() {
         final var expectedPlayer = Player.builder()
             .id(1L)
             .name("expectedPlayer")
             .build();
 
-        when(persistence.findByName(expectedPlayer.getName())).thenReturn(expectedPlayer);
+        when(persistence.findPlayerByName(expectedPlayer.getName())).thenReturn(expectedPlayer);
 
         final var actual = service.search(expectedPlayer.getName());
         assertThat(actual)
             .usingRecursiveComparison()
             .isEqualTo(expectedPlayer);
 
-        verify(persistence).findByName(playerNameCaptor.capture());
+        verify(persistence).findPlayerByName(playerNameCaptor.capture());
         assertThat(playerNameCaptor.getValue())
             .isEqualTo(expectedPlayer.getName());
 
@@ -49,20 +49,20 @@ public class SearchPlayerServiceTest {
     }
 
     @Test
-    void should_throw_when_player_not_found() {
+    public void should_throw_when_player_not_found() {
         final var expectedPlayer = Player.builder()
             .id(1L)
             .name("expectedPlayer")
             .build();
 
-        when(persistence.findByName(expectedPlayer.getName())).thenReturn(null);
+        when(persistence.findPlayerByName(expectedPlayer.getName())).thenReturn(null);
 
         assertThatExceptionOfType(RuntimeException.class)
             .isThrownBy(
                 () -> this.service.search(expectedPlayer.getName())
             ).withMessage("Le joueur " + expectedPlayer.getName() + " n'existe pas");
 
-        verify(persistence).findByName(playerNameCaptor.capture());
+        verify(persistence).findPlayerByName(playerNameCaptor.capture());
         assertThat(playerNameCaptor.getValue())
             .isEqualTo(expectedPlayer.getName());
 

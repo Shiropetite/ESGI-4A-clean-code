@@ -2,6 +2,8 @@ package com.cleancode.adapter.out.entities;
 
 import jakarta.persistence.*;
 
+import java.util.Objects;
+
 @Entity
 @Table(name = "HERO_DUEL")
 public class HeroDuelEntity {
@@ -41,4 +43,13 @@ public class HeroDuelEntity {
     public void setLoser(HeroEntity loser) {
         this.loser = loser;
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        HeroDuelEntity that = (HeroDuelEntity) o;
+        return Objects.equals(id, that.id) && Objects.equals(winner, that.winner) && Objects.equals(loser, that.loser);
+    }
+
 }

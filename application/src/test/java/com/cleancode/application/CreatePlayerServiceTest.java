@@ -40,19 +40,19 @@ public class CreatePlayerServiceTest {
             .name(mockPlayerName)
             .build();
 
-        when(persistence.findByName(eq(mockPlayerName))).thenReturn(null);
-        when(persistence.create(any(Player.class))).thenReturn(expectedPlayer);
+        when(persistence.findPlayerByName(eq(mockPlayerName))).thenReturn(null);
+        when(persistence.createPlayer(any(Player.class))).thenReturn(expectedPlayer);
 
         final var actual = service.create(mockPlayerName);
         assertThat(actual)
             .usingRecursiveComparison()
             .isEqualTo(expectedPlayer);
 
-        verify(persistence).findByName(playerNameCaptor.capture());
+        verify(persistence).findPlayerByName(playerNameCaptor.capture());
         assertThat(playerNameCaptor.getValue())
             .isEqualTo(mockPlayerName);
 
-        verify(persistence).create(playerCaptor.capture());
+        verify(persistence).createPlayer(playerCaptor.capture());
         assertThat(playerCaptor.getValue())
             .usingRecursiveComparison()
             .isEqualTo(mockPlayer);
@@ -68,14 +68,14 @@ public class CreatePlayerServiceTest {
             .name(mockPlayerName)
             .build();
 
-        when(persistence.findByName(eq(mockPlayerName))).thenReturn(expectedPlayer);
+        when(persistence.findPlayerByName(eq(mockPlayerName))).thenReturn(expectedPlayer);
 
         assertThatExceptionOfType(RuntimeException.class)
             .isThrownBy(
                 () -> this.service.create(mockPlayerName)
             ).withMessage("Le joueur " + mockPlayerName + " existe déjà");
 
-        verify(persistence).findByName(playerNameCaptor.capture());
+        verify(persistence).findPlayerByName(playerNameCaptor.capture());
         assertThat(playerNameCaptor.getValue())
             .isEqualTo(mockPlayerName);
 

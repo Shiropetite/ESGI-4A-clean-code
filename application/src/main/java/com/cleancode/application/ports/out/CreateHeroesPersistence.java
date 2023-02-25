@@ -1,9 +1,6 @@
 package com.cleancode.application.ports.out;
 
-import com.cleancode.domain.HeroRef;
+import com.cleancode.application.ports.out.repositories.CreateHeroRef;
 
-public interface CreateHeroesPersistence {
-
-    HeroRef create(HeroRef hero);
-
-}
+public interface CreateHeroesPersistence extends CreateHeroRef
+{ }

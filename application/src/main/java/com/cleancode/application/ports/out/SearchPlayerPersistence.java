@@ -1,9 +1,6 @@
 package com.cleancode.application.ports.out;
 
-import com.cleancode.domain.Player;
+import com.cleancode.application.ports.out.repositories.FindPlayerByName;
 
-public interface SearchPlayerPersistence {
-
-    Player findByName(String playerName);
-
-}
+public interface SearchPlayerPersistence extends FindPlayerByName
+{ }

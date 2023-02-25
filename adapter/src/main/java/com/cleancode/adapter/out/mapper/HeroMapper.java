@@ -29,6 +29,7 @@ public class HeroMapper implements Mapper<Hero, HeroEntity>, ListMapper<Hero, He
 
     public HeroEntity toEntity(Hero domain) {
         HeroEntity entity = new HeroEntity();
+        entity.setId(domain.getId());
         entity.setRef(HeroRefMapper.get().toEntity(domain.getRef()));
         entity.setXp(domain.getXp());
         entity.setLevel(domain.getLevel());

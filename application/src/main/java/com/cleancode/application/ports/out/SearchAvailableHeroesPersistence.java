@@ -1,11 +1,6 @@
 package com.cleancode.application.ports.out;
 
-import com.cleancode.domain.HeroRef;
+import com.cleancode.application.ports.out.repositories.FindAllHeroRef;
 
-import java.util.List;
-
-public interface SearchAvailableHeroesPersistence {
-
-    List<HeroRef> search();
-
-}
+public interface SearchAvailableHeroesPersistence extends FindAllHeroRef
+{ }

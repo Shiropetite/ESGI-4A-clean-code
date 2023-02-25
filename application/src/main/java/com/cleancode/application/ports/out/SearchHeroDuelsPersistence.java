@@ -1,14 +1,9 @@
 package com.cleancode.application.ports.out;
 
-import com.cleancode.domain.Hero;
-import com.cleancode.domain.HeroDuel;
+import com.cleancode.application.ports.out.repositories.FindHeroById;
+import com.cleancode.application.ports.out.repositories.FindHeroDuelsByHero;
 
-import java.util.List;
-
-public interface SearchHeroDuelsPersistence {
-
-    Hero findById(Long id);
-
-    List<HeroDuel> findHeroDuels(Hero hero);
-
-}
+public interface SearchHeroDuelsPersistence extends
+    FindHeroById,
+    FindHeroDuelsByHero
+{ }

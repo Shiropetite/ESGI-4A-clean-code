@@ -34,8 +34,6 @@ public class OpenHeroPackServiceTest {
         final var mockPlayer = Player.builder()
             .id(1L)
             .name("mockPlayer1")
-            .deck(List.of())
-            .tokens(4)
             .build();
         final var mockPack = new HeroPack(
             1L,
@@ -52,7 +50,7 @@ public class OpenHeroPackServiceTest {
         when(persistence.findHeroPackById(eq(mockPack.getId()))).thenReturn(mockPack);
         when(persistence.findRandomHeroRefByRarity(any(String.class))).thenReturn(heroRef);
         when(persistence.createHero(any(Hero.class))).thenReturn(new Hero(heroRef));
-        doNothing().when(persistence).updatePlayer(any());
+        when(persistence.updatePlayer(any())).thenReturn(null);
 
         final var actual = service.open(mockPlayer.getId(), mockPack.getId());
 

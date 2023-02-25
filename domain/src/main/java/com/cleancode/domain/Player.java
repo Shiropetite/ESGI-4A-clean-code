@@ -3,6 +3,7 @@ package com.cleancode.domain;
 import lombok.Builder;
 import lombok.Builder.Default;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
@@ -12,7 +13,7 @@ public final class Player {
     private final Long id;
     private final String name;
     @Default
-    private final List<Hero> deck = List.of();
+    private final List<Hero> deck = new ArrayList<>();
     @Default
     private int tokens = 4;
 

@@ -1,8 +1,9 @@
 package com.cleancode.adapter;
 
-import com.cleancode.adapter.out.repositories.*;
+import com.cleancode.adapter.out.components.*;
 import com.cleancode.adapter.out.services.*;
 import com.cleancode.application.ports.out.*;
+import com.cleancode.application.ports.out.repositories.FindHeroDuelsByHero;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
@@ -10,58 +11,66 @@ import org.springframework.context.annotation.Configuration;
 public class ApplicationConfiguration {
 
     @Bean
-    public CreateHeroesPersistence createHeroesOut(HeroRefRepository refHeroRepository) {
-        return new CreateHeroesPersistenceImpl(refHeroRepository);
+    public CreateHeroesPersistence createHeroesOut(CreateHeroRefImpl saveHeroRef) {
+        return new CreateHeroesPersistenceImpl(saveHeroRef);
     }
 
     @Bean
-    public SearchAvailableHeroesPersistence searchAvailableHeroesOut(HeroRefRepository refHeroRepository) {
-        return new SearchAvailableHeroesPersistenceImpl(refHeroRepository);
+    public SearchAvailableHeroesPersistence searchAvailableHeroesOut(FindAllHeroRefImpl findAllHeroRef) {
+        return new SearchAvailableHeroesPersistenceImpl(findAllHeroRef);
     }
 
     @Bean
-    public CreatePlayerPersistence createPlayerOut(PlayerRepository playerRepository) {
-        return new CreatePlayerPersistenceImpl(playerRepository);
+    public CreatePlayerPersistence createPlayerOut(FindPlayerByNameImpl findPlayerByName, CreatePlayerImpl createPlayer) {
+        return new CreatePlayerPersistenceImpl(findPlayerByName, createPlayer);
     }
 
     @Bean
     public OpenHeroPackPersistence openHeroPackOut(
-        PlayerRepository playerRepository,
-        HeroPackRepository heroPackRepository,
-        HeroRefRepository heroRefRepository,
-        HeroRepository heroRepository
+        FindHeroPackByIdImpl findHeroPackById,
+        FindPlayerByIdImpl findPlayerById,
+        FindRandomHeroRefByRarityImpl findRandomHeroRefByRarity,
+        CreateHeroImpl createHero,
+        UpdatePlayerImpl updatePlayer
     ) {
         return new OpenHeroPackPersistenceImpl(
-            playerRepository,
-            heroPackRepository,
-            heroRefRepository,
-            heroRepository
+                findHeroPackById,
+                findPlayerById,
+                findRandomHeroRefByRarity,
+                createHero,
+                updatePlayer
         );
     }
 
     @Bean
-    public SearchPlayerPersistence searchPlayerOut(PlayerRepository playerRepository) {
-        return new SearchPlayerPersistenceImpl(playerRepository);
+    public SearchPlayerPersistence searchPlayerOut(FindPlayerByNameImpl findPlayerByName) {
+        return new SearchPlayerPersistenceImpl(findPlayerByName);
     }
 
     @Bean
     public CreateHeroDuelPersistence duelHeroesOut(
-        PlayerRepository playerRepository,
-        HeroRepository heroRepository,
-        HeroDuelRepository heroDuelRepository,
-        HeroBonusRepository heroBonusRepository
+        FindPlayerByIdImpl findPlayerById,
+        FindHeroByIdImpl findHeroById,
+        FindHeroBonusImpl findHeroBonus,
+        FindPlayerVictoriesImpl findPlayerVictories,
+        UpdateHeroImpl saveHero,
+        UpdatePlayerImpl updatePlayer,
+        CreateHeroDuelImpl saveHeroDuel
     ) {
         return new CreateHeroDuelPersistenceImpl(
-            playerRepository,
-            heroRepository,
-            heroDuelRepository,
-            heroBonusRepository
+                findPlayerById,
+                findHeroById,
+                findHeroBonus,
+                findPlayerVictories,
+                saveHero,
+                updatePlayer,
+                saveHeroDuel
         );
     }
 
     @Bean
-    public SearchHeroDuelsPersistence searchHeroDuelsOut(HeroRepository heroRepository, HeroDuelRepository heroDuelRepository) {
-        return new SearchHeroDuelsPersistenceImpl(heroRepository, heroDuelRepository);
+    public SearchHeroDuelsPersistence searchHeroDuelsOut(FindHeroByIdImpl findHeroById, FindHeroDuelsByHero findHeroDuelsByHero) {
+        return new SearchHeroDuelsPersistenceImpl(findHeroById, findHeroDuelsByHero);
     }
 
 }

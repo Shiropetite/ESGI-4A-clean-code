@@ -27,7 +27,7 @@ public class CreateHeroDuelServiceTest {
     private CreateHeroDuelPersistence persistence;
 
     @Test
-    void should_create_new_hero_duel_when_hero_1_win() {
+    public void should_create_new_hero_duel_when_hero_1_win() {
         final var mockHero1 = new Hero(
             1L,
             new HeroRef(1L, "Tank", 1200, 120, 22, "Légendaire"),
@@ -62,10 +62,10 @@ public class CreateHeroDuelServiceTest {
         when(persistence.findHeroById(eq(mockHero2.getId()))).thenReturn(mockHero2);
 
         when(persistence.findHeroBonus(any(String.class), any(String.class))).thenReturn(null);
-        when(persistence.findVictories(any(Player.class))).thenReturn(List.of());
-        doNothing().when(persistence).updateHero(any());
+        when(persistence.findPlayerVictories(any(Player.class))).thenReturn(List.of());
+        when(persistence.updateHero(any())).thenReturn(null);
 
-        when(persistence.save(any(HeroDuel.class))).thenReturn(expectedHeroDuel);
+        when(persistence.createHeroDuel(any(HeroDuel.class))).thenReturn(expectedHeroDuel);
 
         final var actual = service.create(
             mockPlayer1.getId(),
@@ -82,7 +82,7 @@ public class CreateHeroDuelServiceTest {
     }
 
     @Test
-    void should_create_new_hero_duel_when_hero_2_win() {
+    public void should_create_new_hero_duel_when_hero_2_win() {
         final var mockHero1 = new Hero(
                 4L,
                 new HeroRef(2L, "Mage", 700, 150, 10, "Commun"),
@@ -119,10 +119,10 @@ public class CreateHeroDuelServiceTest {
 
         when(persistence.findHeroBonus(eq(mockHero2.getRef().getName()), eq(mockHero1.getRef().getName()))).thenReturn(hero2Bonus);
         when(persistence.findHeroBonus(eq(mockHero1.getRef().getName()), eq(mockHero2.getRef().getName()))).thenReturn(null);
-        when(persistence.findVictories(any(Player.class))).thenReturn(List.of());
-        doNothing().when(persistence).updateHero(any());
+        when(persistence.findPlayerVictories(any(Player.class))).thenReturn(List.of());
+        when(persistence.updateHero(any())).thenReturn(null);
 
-        when(persistence.save(any(HeroDuel.class))).thenReturn(expectedHeroDuel);
+        when(persistence.createHeroDuel(any(HeroDuel.class))).thenReturn(expectedHeroDuel);
 
         final var actual = service.create(
                 mockPlayer1.getId(),
@@ -140,7 +140,7 @@ public class CreateHeroDuelServiceTest {
 
 
     @Test
-    void should_add_token_when_win_5_time() {
+    public void should_add_token_when_win_5_time() {
         final var mockHero1 = new Hero(
                 1L,
                 new HeroRef(1L, "Tank", 1200, 120, 22, "Légendaire"),
@@ -175,16 +175,16 @@ public class CreateHeroDuelServiceTest {
         when(persistence.findHeroById(eq(mockHero2.getId()))).thenReturn(mockHero2);
 
         when(persistence.findHeroBonus(any(String.class), any(String.class))).thenReturn(null);
-        when(persistence.findVictories(any(Player.class))).thenReturn(List.of(
+        when(persistence.findPlayerVictories(any(Player.class))).thenReturn(List.of(
                 expectedHeroDuel,
                 expectedHeroDuel,
                 expectedHeroDuel,
                 expectedHeroDuel
         ));
-        doNothing().when(persistence).updateHero(any());
-        doNothing().when(persistence).updatePlayer(any());
+        when(persistence.updateHero(any())).thenReturn(null);
+        when(persistence.updatePlayer(any())).thenReturn(null);
 
-        when(persistence.save(any(HeroDuel.class))).thenReturn(expectedHeroDuel);
+        when(persistence.createHeroDuel(any(HeroDuel.class))).thenReturn(expectedHeroDuel);
 
         final var actual = service.create(
                 mockPlayer1.getId(),
@@ -201,7 +201,7 @@ public class CreateHeroDuelServiceTest {
     }
 
     @Test
-    void should_throw_when_player_1_not_found() {
+    public void should_throw_when_player_1_not_found() {
         final var mockPlayer1Id = 1L;
 
         when(persistence.findPlayerById(any())).thenReturn(null);
@@ -216,7 +216,7 @@ public class CreateHeroDuelServiceTest {
     }
 
     @Test
-    void should_throw_when_player_2_not_found() {
+    public void should_throw_when_player_2_not_found() {
         final var mockPlayer = Player.builder().id(1L).build();
         final var mockPlayer2Id = 2L;
 
@@ -233,7 +233,7 @@ public class CreateHeroDuelServiceTest {
     }
 
     @Test
-    void should_throw_when_players_are_the_same() {
+    public void should_throw_when_players_are_the_same() {
         final var mockPlayer = Player.builder()
             .id(1L)
             .name("mockPlayer")
@@ -251,7 +251,7 @@ public class CreateHeroDuelServiceTest {
     }
 
     @Test
-    void should_throw_when_hero_1_not_found() {
+    public void should_throw_when_hero_1_not_found() {
         final var mockHeroId = 1L;
         final var mockPlayer1 = Player.builder()
             .id(1L)
@@ -275,7 +275,7 @@ public class CreateHeroDuelServiceTest {
     }
 
     @Test
-    void should_throw_when_hero_2_not_found() {
+    public void should_throw_when_hero_2_not_found() {
         final var mockHero2Id = 2L;
         final var mockHero1 = new Hero(
             1L,
@@ -306,7 +306,7 @@ public class CreateHeroDuelServiceTest {
     }
 
     @Test
-    void should_throw_when_hero_1_not_found_in_player_1_deck() {
+    public void should_throw_when_hero_1_not_found_in_player_1_deck() {
         final var mockHero1 = new Hero(
             1L,
             new HeroRef(1L, "Tank", 1200, 120, 22, "Légendaire"),
@@ -335,7 +335,7 @@ public class CreateHeroDuelServiceTest {
     }
 
     @Test
-    void should_throw_when_hero_2_not_found_in_player_2_deck() {
+    public void should_throw_when_hero_2_not_found_in_player_2_deck() {
         final var mockHero1 = new Hero(
                 1L,
                 new HeroRef(1L, "Tank", 1200, 120, 22, "Légendaire"),
@@ -372,7 +372,7 @@ public class CreateHeroDuelServiceTest {
     }
 
     @Test
-    void should_throw_when_heroes_not_able_to_duel() {
+    public void should_throw_when_heroes_not_able_to_duel() {
         final var mockHero1 = new Hero(
             1L,
             new HeroRef(1L, "Tank", 1200, 120, 22, "Légendaire"),

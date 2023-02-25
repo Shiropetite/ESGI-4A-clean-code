@@ -5,7 +5,6 @@ import com.cleancode.application.services.SearchHeroDuelsServiceImpl;
 import com.cleancode.domain.Hero;
 import com.cleancode.domain.HeroDuel;
 import com.cleancode.domain.HeroRef;
-import com.cleancode.domain.Player;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.ArgumentCaptor;
@@ -31,11 +30,12 @@ public class SearchHeroDuelsServiceTest {
 
     @Captor
     private ArgumentCaptor<Long> heroIdCaptor;
+
     @Captor
     private ArgumentCaptor<Hero> heroCaptor;
 
     @Test
-    void should_search_hero_duels() {
+    public void should_search_hero_duels() {
         final var mockHero1 = new Hero(
             1L,
             new HeroRef(1L, "Tank", 1200, 120, 22, "Légendaire"),
@@ -52,19 +52,19 @@ public class SearchHeroDuelsServiceTest {
             new HeroDuel(1L, mockHero1, mockHero2)
         );
 
-        when(persistence.findById(mockHero1.getId())).thenReturn(mockHero1);
-        when(persistence.findHeroDuels(mockHero1)).thenReturn(expectedHeroDuels);
+        when(persistence.findHeroById(mockHero1.getId())).thenReturn(mockHero1);
+        when(persistence.findHeroDuelsByHero(mockHero1)).thenReturn(expectedHeroDuels);
 
         final var actual = service.search(mockHero1.getId());
         assertThat(actual)
             .usingRecursiveComparison()
             .isEqualTo(expectedHeroDuels);
 
-        verify(persistence).findById(heroIdCaptor.capture());
+        verify(persistence).findHeroById(heroIdCaptor.capture());
         assertThat(heroIdCaptor.getValue())
             .isEqualTo(mockHero1.getId());
 
-        verify(persistence).findHeroDuels(heroCaptor.capture());
+        verify(persistence).findHeroDuelsByHero(heroCaptor.capture());
         assertThat(heroCaptor.getValue())
             .usingRecursiveComparison()
             .isEqualTo(mockHero1);
@@ -73,17 +73,17 @@ public class SearchHeroDuelsServiceTest {
     }
 
     @Test
-    void should_throw_when_hero_not_found() {
-        var mockHeroId = 1L;
+    public void should_throw_when_hero_not_found() {
+        final var mockHeroId = 1L;
 
-        when(persistence.findById(mockHeroId)).thenReturn(null);
+        when(persistence.findHeroById(mockHeroId)).thenReturn(null);
 
         assertThatExceptionOfType(RuntimeException.class)
             .isThrownBy(
                 () -> this.service.search(mockHeroId)
             ).withMessage("Le héros " + mockHeroId + " n'existe pas");
 
-        verify(persistence).findById(heroIdCaptor.capture());
+        verify(persistence).findHeroById(heroIdCaptor.capture());
         assertThat(heroIdCaptor.getValue())
             .isEqualTo(mockHeroId);
 

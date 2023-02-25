@@ -1,7 +1,8 @@
 package com.cleancode.adapter.out.entities;
 
 import jakarta.persistence.*;
-import org.hibernate.annotations.ManyToAny;
+
+import java.util.Objects;
 
 @Entity
 @Table(name = "HERO")
@@ -50,6 +51,14 @@ public class HeroEntity {
 
     public void setLevel(int level) {
         this.level = level;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        HeroEntity that = (HeroEntity) o;
+        return Objects.equals(id, that.id);
     }
 
 }
