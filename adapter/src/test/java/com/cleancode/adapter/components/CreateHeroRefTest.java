@@ -29,9 +29,6 @@ public class CreateHeroRefTest {
 
     @Test
     public void create_hero_ref() {
-        final var heroRefEntity = new HeroRefEntity();
-        heroRefEntity.setRarity("Commun");
-
         final var heroRefEntitySave = new HeroRefEntity();
         heroRefEntitySave.setId(1L);
         heroRefEntitySave.setRarity("Commun");
@@ -45,7 +42,7 @@ public class CreateHeroRefTest {
         assertThat(actual).usingRecursiveComparison().isEqualTo(expectedHeroRef);
 
         verify(heroRefRepository).save(heroRefEntityCaptor.capture());
-        assertThat(heroRefEntityCaptor.getValue()).usingRecursiveComparison().isEqualTo(heroRefEntity);
+        assertThat(heroRefEntityCaptor.getValue()).usingRecursiveComparison().isEqualTo(heroRefEntitySave);
 
         verifyNoMoreInteractions(heroRefRepository);
     }
