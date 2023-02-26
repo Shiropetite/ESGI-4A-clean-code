@@ -7,14 +7,14 @@ import com.cleancode.domain.HeroRef;
 import org.springframework.stereotype.Component;
 
 @Component
-public class CreateHeroRefImpl implements CreateHeroRef {
+public final class CreateHeroRefImpl implements CreateHeroRef {
 
     private final HeroRefRepository repository;
 
     public CreateHeroRefImpl(HeroRefRepository repository) { this.repository = repository; }
 
     @Override
-    public HeroRef createHeroRef(HeroRef hero) {
+    public final HeroRef createHeroRef(HeroRef hero) {
         return HeroRefMapper.get().toDomain(this.repository.save(HeroRefMapper.get().toEntity(hero)));
     }
 

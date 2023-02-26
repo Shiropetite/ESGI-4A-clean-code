@@ -10,14 +10,14 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping("/players")
-public class CreatePlayerController {
+public final class CreatePlayerController {
 
     private final CreatePlayerService service;
 
     public CreatePlayerController(CreatePlayerService service) { this.service = service; }
 
     @PostMapping
-    public ResponseEntity createPlayer(@RequestBody CreatePlayerRequestBody player) {
+    public final ResponseEntity createPlayer(@RequestBody CreatePlayerRequestBody player) {
         try {
             var createdPlayer = this.service.create(player.name);
             return ResponseEntity.ok().body(createdPlayer);

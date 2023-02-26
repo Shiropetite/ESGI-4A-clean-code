@@ -16,7 +16,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
-public class FindAllHeroRefTest {
+public final class FindAllHeroRefTest {
 
     @InjectMocks
     private FindAllHeroRefImpl service;
@@ -25,7 +25,7 @@ public class FindAllHeroRefTest {
     private HeroRefRepository heroRefRepository;
 
     @Test
-    public void find_all_hero_ref() {
+    void should_find_all_hero_refs() {
         final var expectedHeroRefEntities = new ArrayList<HeroRefEntity>();
         expectedHeroRefEntities.add(new HeroRefEntity());
 
@@ -34,7 +34,6 @@ public class FindAllHeroRefTest {
         when(heroRefRepository.findAll()).thenReturn(expectedHeroRefEntities);
 
         final var actual = service.findAllHeroRef();
-
         assertThat(actual).usingRecursiveComparison().isEqualTo(expectedHeroRef);
 
         verifyNoMoreInteractions(heroRefRepository);

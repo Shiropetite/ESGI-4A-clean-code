@@ -18,7 +18,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
-public class CreatePlayerTest {
+public final class CreatePlayerTest {
 
     @InjectMocks
     private CreatePlayerImpl service;
@@ -30,7 +30,7 @@ public class CreatePlayerTest {
     private ArgumentCaptor<PlayerEntity> playerEntityCaptor;
 
     @Test
-    public void create_player() {
+    void should_create_player() {
         final var playerEntity = new PlayerEntity();
         playerEntity.setName("Toto");
         playerEntity.setDeck(new ArrayList<>());
@@ -45,7 +45,6 @@ public class CreatePlayerTest {
         when(playerRepository.save(any(PlayerEntity.class))).thenReturn(playerEntitySave);
 
         final var actual = service.createPlayer(expectedPlayer);
-
         assertThat(actual).usingRecursiveComparison().isEqualTo(expectedPlayer);
 
         verify(playerRepository).save(playerEntityCaptor.capture());

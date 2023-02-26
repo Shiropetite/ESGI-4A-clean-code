@@ -7,7 +7,7 @@ import com.cleancode.domain.HeroPack;
 import org.springframework.stereotype.Component;
 
 @Component
-public class FindHeroPackByIdImpl implements FindHeroPackById {
+public final class FindHeroPackByIdImpl implements FindHeroPackById {
 
     private final HeroPackRepository heroPackRepository;
 
@@ -16,10 +16,10 @@ public class FindHeroPackByIdImpl implements FindHeroPackById {
     }
 
     @Override
-    public HeroPack findHeroPackById(Long id) {
+    public final HeroPack findHeroPackById(Long id) {
         return this.heroPackRepository.findById(id)
-                .map(heroPackEntity -> HeroPackMapper.get().toDomain(heroPackEntity))
-                .orElse(null);
+            .map(heroPackEntity -> HeroPackMapper.get().toDomain(heroPackEntity))
+            .orElse(null);
     }
 
 }

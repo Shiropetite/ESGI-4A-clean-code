@@ -18,7 +18,7 @@ public class UpdatePlayerImpl implements UpdatePlayer {
     }
 
     @Override
-    public Player updatePlayer(Player player) {
+    public final Player updatePlayer(Player player) {
         final var playerEntity = this.playerRepository.findById(player.getId());
         if (playerEntity.isEmpty()) { return null; }
 

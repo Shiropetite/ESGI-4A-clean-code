@@ -5,15 +5,10 @@ import com.cleancode.application.ports.out.repositories.CreatePlayer;
 import com.cleancode.application.ports.out.repositories.FindPlayerByName;
 import com.cleancode.domain.Player;
 
-public class CreatePlayerPersistenceImpl implements CreatePlayerPersistence {
-
-    private final FindPlayerByName findPlayerByName;
-    private final CreatePlayer createPlayer;
-
-    public CreatePlayerPersistenceImpl(FindPlayerByName findPlayerByName, CreatePlayer createPlayer) {
-        this.findPlayerByName = findPlayerByName;
-        this.createPlayer = createPlayer;
-    }
+public final record CreatePlayerPersistenceImpl(
+    FindPlayerByName findPlayerByName,
+    CreatePlayer createPlayer
+) implements CreatePlayerPersistence {
 
     @Override
     public Player findPlayerByName(String playerName) {
@@ -24,4 +19,5 @@ public class CreatePlayerPersistenceImpl implements CreatePlayerPersistence {
     public Player createPlayer(Player player) {
         return this.createPlayer.createPlayer(player);
     }
+
 }

@@ -26,7 +26,7 @@ import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
-public class FindPlayerVictoriesTest {
+public final class FindPlayerVictoriesTest {
 
     @InjectMocks
     private FindPlayerVictoriesImpl service;
@@ -44,7 +44,7 @@ public class FindPlayerVictoriesTest {
     private ArgumentCaptor<HeroEntity> heroEntityCaptor;
 
     @Test
-    public void find_player_victories() {
+    void should_find_player_victories() {
         final var heroId = 1L;
 
         final var heroEntity = new HeroEntity();
@@ -63,15 +63,12 @@ public class FindPlayerVictoriesTest {
         final var deck = new ArrayList<Hero>();
         deck.add(HeroMapper.get().toDomain(heroEntity));
 
-        final var player = Player.builder()
-            .deck(deck)
-            .build();
+        final var player = Player.builder().deck(deck).build();
 
         when(heroRepository.findById(eq(heroId))).thenReturn(Optional.of(heroEntity));
         when(heroDuelRepository.findHeroDuelEntitiesByWinner(eq(heroEntity))).thenReturn(Optional.of(expectedHeroDuelsEntity));
 
         final var actual = service.findPlayerVictories(player);
-
         assertThat(actual).usingRecursiveComparison().isEqualTo(expectedHeroDuels);
 
         verify(heroRepository).findById(heroIdCaptor.capture());

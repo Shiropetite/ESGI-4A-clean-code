@@ -20,7 +20,7 @@ import static org.assertj.core.api.Assertions.assertThatExceptionOfType;
 import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
-public class SearchHeroDuelsServiceTest {
+public final class SearchHeroDuelsServiceTest {
 
     @InjectMocks
     private SearchHeroDuelsServiceImpl service;
@@ -35,7 +35,7 @@ public class SearchHeroDuelsServiceTest {
     private ArgumentCaptor<Hero> heroCaptor;
 
     @Test
-    public void should_search_hero_duels() {
+    void should_search_hero_duels() {
         final var mockHero1 = new Hero(
             1L,
             new HeroRef(1L, "Tank", 1200, 120, 22, "Légendaire"),
@@ -56,24 +56,19 @@ public class SearchHeroDuelsServiceTest {
         when(persistence.findHeroDuelsByHero(mockHero1)).thenReturn(expectedHeroDuels);
 
         final var actual = service.search(mockHero1.getId());
-        assertThat(actual)
-            .usingRecursiveComparison()
-            .isEqualTo(expectedHeroDuels);
+        assertThat(actual).usingRecursiveComparison().isEqualTo(expectedHeroDuels);
 
         verify(persistence).findHeroById(heroIdCaptor.capture());
-        assertThat(heroIdCaptor.getValue())
-            .isEqualTo(mockHero1.getId());
+        assertThat(heroIdCaptor.getValue()).isEqualTo(mockHero1.getId());
 
         verify(persistence).findHeroDuelsByHero(heroCaptor.capture());
-        assertThat(heroCaptor.getValue())
-            .usingRecursiveComparison()
-            .isEqualTo(mockHero1);
+        assertThat(heroCaptor.getValue()).usingRecursiveComparison().isEqualTo(mockHero1);
 
         verifyNoMoreInteractions(persistence);
     }
 
     @Test
-    public void should_throw_when_hero_not_found() {
+    void should_throw_when_hero_not_found() {
         final var mockHeroId = 1L;
 
         when(persistence.findHeroById(mockHeroId)).thenReturn(null);
@@ -84,8 +79,7 @@ public class SearchHeroDuelsServiceTest {
             ).withMessage("Le héros " + mockHeroId + " n'existe pas");
 
         verify(persistence).findHeroById(heroIdCaptor.capture());
-        assertThat(heroIdCaptor.getValue())
-            .isEqualTo(mockHeroId);
+        assertThat(heroIdCaptor.getValue()).isEqualTo(mockHeroId);
 
         verifyNoMoreInteractions(persistence);
     }

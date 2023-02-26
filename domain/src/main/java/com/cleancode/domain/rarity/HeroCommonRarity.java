@@ -1,14 +1,14 @@
 package com.cleancode.domain.rarity;
 
-public class HeroCommonRarity implements HeroRarity {
+public final class HeroCommonRarity implements HeroRarity {
 
     @Override
-    public float applyFactor(float heroStat) {
+    public final float applyFactor(float heroStat) {
         return heroStat;
     }
 
     @Override
-    public String getName() {
+    public final String getName() {
         return "Commun";
     }
 

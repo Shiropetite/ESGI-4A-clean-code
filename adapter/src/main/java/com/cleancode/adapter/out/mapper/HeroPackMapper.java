@@ -3,7 +3,7 @@ package com.cleancode.adapter.out.mapper;
 import com.cleancode.adapter.out.entities.HeroPackEntity;
 import com.cleancode.domain.HeroPack;
 
-public class HeroPackMapper implements Mapper<HeroPack, HeroPackEntity> {
+public final class HeroPackMapper implements Mapper<HeroPack, HeroPackEntity> {
 
     private static HeroPackMapper instance;
 
@@ -15,7 +15,7 @@ public class HeroPackMapper implements Mapper<HeroPack, HeroPackEntity> {
     }
 
     @Override
-    public HeroPack toDomain(HeroPackEntity entity) {
+    public final HeroPack toDomain(HeroPackEntity entity) {
         return new HeroPack(
             entity.getId(),
             entity.getName(),
@@ -28,7 +28,7 @@ public class HeroPackMapper implements Mapper<HeroPack, HeroPackEntity> {
     }
 
     @Override
-    public HeroPackEntity toEntity(HeroPack domain) {
+    public final HeroPackEntity toEntity(HeroPack domain) {
         HeroPackEntity entity = new HeroPackEntity();
         entity.setName(domain.getName());
         entity.setRequiredTokens(domain.getRequiredTokens());

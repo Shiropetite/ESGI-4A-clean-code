@@ -19,7 +19,7 @@ import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
-public class FindHeroPackByIdTest {
+public final class FindHeroPackByIdTest {
 
     @InjectMocks
     private FindHeroPackByIdImpl service;
@@ -31,7 +31,7 @@ public class FindHeroPackByIdTest {
     private ArgumentCaptor<Long> heroPackIdCaptor;
 
     @Test
-    public void find_hero_pack_by_id() {
+    void should_find_hero_pack_by_id() {
         final var heroPackId = 1L;
 
         final var expectedHeroPackEntity = new HeroPackEntity();
@@ -42,7 +42,6 @@ public class FindHeroPackByIdTest {
         when(heroPackRepository.findById(eq(heroPackId))).thenReturn(Optional.of(expectedHeroPackEntity));
 
         final var actual = service.findHeroPackById(heroPackId);
-
         assertThat(actual).usingRecursiveComparison().isEqualTo(expectedHeroPack);
 
         verify(heroPackRepository).findById(heroPackIdCaptor.capture());

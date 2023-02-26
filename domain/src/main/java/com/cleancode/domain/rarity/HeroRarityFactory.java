@@ -1,8 +1,8 @@
 package com.cleancode.domain.rarity;
 
-public class HeroRarityFactory {
+public final class HeroRarityFactory {
 
-    public HeroRarity create(String rarityName) {
+    public final HeroRarity create(String rarityName) {
         if (rarityName == null) { return null; }
         if (rarityName.equalsIgnoreCase("Commun")) {
             return new HeroCommonRarity();

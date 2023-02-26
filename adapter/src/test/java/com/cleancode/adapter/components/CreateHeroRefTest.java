@@ -16,7 +16,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
-public class CreateHeroRefTest {
+public final class CreateHeroRefTest {
 
     @InjectMocks
     private CreateHeroRefImpl service;
@@ -28,7 +28,7 @@ public class CreateHeroRefTest {
     private ArgumentCaptor<HeroRefEntity> heroRefEntityCaptor;
 
     @Test
-    public void create_hero_ref() {
+    void should_create_hero_ref() {
         final var heroRefEntitySave = new HeroRefEntity();
         heroRefEntitySave.setId(1L);
         heroRefEntitySave.setRarity("Commun");
@@ -38,7 +38,6 @@ public class CreateHeroRefTest {
         when(heroRefRepository.save(any(HeroRefEntity.class))).thenReturn(heroRefEntitySave);
 
         final var actual = service.createHeroRef(expectedHeroRef);
-
         assertThat(actual).usingRecursiveComparison().isEqualTo(expectedHeroRef);
 
         verify(heroRefRepository).save(heroRefEntityCaptor.capture());

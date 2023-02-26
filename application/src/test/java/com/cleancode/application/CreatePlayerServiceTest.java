@@ -16,7 +16,7 @@ import static org.assertj.core.api.Assertions.assertThatExceptionOfType;
 import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
-public class CreatePlayerServiceTest {
+public final class CreatePlayerServiceTest {
 
     @InjectMocks
     private CreatePlayerServiceImpl service;
@@ -26,36 +26,27 @@ public class CreatePlayerServiceTest {
 
     @Captor
     private ArgumentCaptor<String> playerNameCaptor;
+
     @Captor
     private ArgumentCaptor<Player> playerCaptor;
 
     @Test
     void should_create_new_player() {
         final var mockPlayerName = "Toto";
-        final var mockPlayer = Player.builder()
-            .name(mockPlayerName)
-            .build();
-        final var expectedPlayer = Player.builder()
-            .id(1L)
-            .name(mockPlayerName)
-            .build();
+        final var mockPlayer = Player.builder().name(mockPlayerName).build();
+        final var expectedPlayer = Player.builder().id(1L).name(mockPlayerName).build();
 
         when(persistence.findPlayerByName(eq(mockPlayerName))).thenReturn(null);
         when(persistence.createPlayer(any(Player.class))).thenReturn(expectedPlayer);
 
         final var actual = service.create(mockPlayerName);
-        assertThat(actual)
-            .usingRecursiveComparison()
-            .isEqualTo(expectedPlayer);
+        assertThat(actual).usingRecursiveComparison().isEqualTo(expectedPlayer);
 
         verify(persistence).findPlayerByName(playerNameCaptor.capture());
-        assertThat(playerNameCaptor.getValue())
-            .isEqualTo(mockPlayerName);
+        assertThat(playerNameCaptor.getValue()).isEqualTo(mockPlayerName);
 
         verify(persistence).createPlayer(playerCaptor.capture());
-        assertThat(playerCaptor.getValue())
-            .usingRecursiveComparison()
-            .isEqualTo(mockPlayer);
+        assertThat(playerCaptor.getValue()).usingRecursiveComparison().isEqualTo(mockPlayer);
 
         verifyNoMoreInteractions(persistence);
     }
@@ -63,10 +54,7 @@ public class CreatePlayerServiceTest {
     @Test
     void should_not_create_new_player_when_already_exist_with_same_name() {
         final var mockPlayerName = "Toto";
-        final var expectedPlayer = Player.builder()
-            .id(1L)
-            .name(mockPlayerName)
-            .build();
+        final var expectedPlayer = Player.builder().id(1L).name(mockPlayerName).build();
 
         when(persistence.findPlayerByName(eq(mockPlayerName))).thenReturn(expectedPlayer);
 
@@ -76,8 +64,7 @@ public class CreatePlayerServiceTest {
             ).withMessage("Le joueur " + mockPlayerName + " existe déjà");
 
         verify(persistence).findPlayerByName(playerNameCaptor.capture());
-        assertThat(playerNameCaptor.getValue())
-            .isEqualTo(mockPlayerName);
+        assertThat(playerNameCaptor.getValue()).isEqualTo(mockPlayerName);
 
         verifyNoMoreInteractions(persistence);
     }

@@ -6,14 +6,14 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/players")
-public class OpenHeroPackController {
+public final class OpenHeroPackController {
 
     private final OpenHeroPackService service;
 
     public OpenHeroPackController(OpenHeroPackService service) { this.service = service; }
 
     @PutMapping("/{playerId}/{heroPackId}")
-    public ResponseEntity open(
+    public final ResponseEntity open(
         @PathVariable Long playerId,
         @PathVariable Long heroPackId
     ) {

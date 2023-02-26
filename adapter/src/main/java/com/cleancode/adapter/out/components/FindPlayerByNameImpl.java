@@ -7,14 +7,14 @@ import com.cleancode.domain.Player;
 import org.springframework.stereotype.Component;
 
 @Component
-public class FindPlayerByNameImpl implements FindPlayerByName {
+public final class FindPlayerByNameImpl implements FindPlayerByName {
 
     private final PlayerRepository repository;
 
     public FindPlayerByNameImpl(PlayerRepository repository) { this.repository = repository; }
 
     @Override
-    public Player findPlayerByName(String playerName) {
+    public final Player findPlayerByName(String playerName) {
         return this.repository.findPlayerEntityByName(playerName)
             .map(playerEntity -> PlayerMapper.get().toDomain(playerEntity))
             .orElse(null);

@@ -7,7 +7,7 @@ import com.cleancode.domain.HeroBonus;
 import org.springframework.stereotype.Component;
 
 @Component
-public class FindHeroBonusImpl implements FindHeroBonus {
+public final class FindHeroBonusImpl implements FindHeroBonus {
 
     private final HeroBonusRepository heroBonusRepository;
 
@@ -16,10 +16,10 @@ public class FindHeroBonusImpl implements FindHeroBonus {
     }
 
     @Override
-    public HeroBonus findHeroBonus(String strongHero, String weakHero) {
+    public final HeroBonus findHeroBonus(String strongHero, String weakHero) {
         return this.heroBonusRepository.findHeroBonusEntityByStrongAndWeak(strongHero, weakHero)
-                .map(heroBonusEntity -> HeroBonusMapper.get().toDomain(heroBonusEntity))
-                .orElse(null);
+            .map(heroBonusEntity -> HeroBonusMapper.get().toDomain(heroBonusEntity))
+            .orElse(null);
     }
 
 }

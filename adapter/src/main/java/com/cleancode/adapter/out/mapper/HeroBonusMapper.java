@@ -5,7 +5,7 @@ import com.cleancode.adapter.out.entities.HeroEntity;
 import com.cleancode.domain.Hero;
 import com.cleancode.domain.HeroBonus;
 
-public class HeroBonusMapper implements Mapper<HeroBonus, HeroBonusEntity> {
+public final class HeroBonusMapper implements Mapper<HeroBonus, HeroBonusEntity> {
 
     private static HeroBonusMapper instance;
 
@@ -17,7 +17,7 @@ public class HeroBonusMapper implements Mapper<HeroBonus, HeroBonusEntity> {
     }
 
     @Override
-    public HeroBonus toDomain(HeroBonusEntity entity) {
+    public final HeroBonus toDomain(HeroBonusEntity entity) {
         return new HeroBonus(
             entity.getId(),
             entity.getStrong(),
@@ -27,7 +27,7 @@ public class HeroBonusMapper implements Mapper<HeroBonus, HeroBonusEntity> {
     }
 
     @Override
-    public HeroBonusEntity toEntity(HeroBonus domain) {
+    public final HeroBonusEntity toEntity(HeroBonus domain) {
         HeroBonusEntity entity = new HeroBonusEntity();
         entity.setStrong(domain.getStrong());
         entity.setWeak(domain.getWeak());

@@ -7,14 +7,14 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/heroes")
-public class CreateHeroDuelController {
+public final class CreateHeroDuelController {
 
     private final CreateHeroDuelService service;
 
     public CreateHeroDuelController(CreateHeroDuelService service) { this.service = service; }
 
     @PutMapping()
-    public ResponseEntity create(@RequestBody DuelHeroesRequestBody duelSettings) {
+    public final ResponseEntity create(@RequestBody DuelHeroesRequestBody duelSettings) {
         try {
             var duel = this.service.create(
                 duelSettings.player1Id,

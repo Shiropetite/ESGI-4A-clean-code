@@ -13,7 +13,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Component
-public class FindHeroDuelsByHeroImpl implements FindHeroDuelsByHero {
+public final class FindHeroDuelsByHeroImpl implements FindHeroDuelsByHero {
 
     private final HeroRepository heroRepository;
     private final HeroDuelRepository heroDuelRepository;
@@ -24,7 +24,7 @@ public class FindHeroDuelsByHeroImpl implements FindHeroDuelsByHero {
     }
 
     @Override
-    public List<HeroDuel> findHeroDuelsByHero(Hero hero) {
+    public final List<HeroDuel> findHeroDuelsByHero(Hero hero) {
         final var heroEntity = this.heroRepository.findById(hero.getId());
         if (heroEntity.isEmpty()) { return null; }
 

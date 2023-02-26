@@ -8,14 +8,14 @@ import com.cleancode.domain.Player;
 import org.springframework.stereotype.Service;
 
 @Service
-public class CreateHeroDuelServiceImpl implements CreateHeroDuelService {
+public final class CreateHeroDuelServiceImpl implements CreateHeroDuelService {
 
     private final CreateHeroDuelPersistence persistence;
 
     public CreateHeroDuelServiceImpl(CreateHeroDuelPersistence persistence) { this.persistence = persistence; }
 
     @Override
-    public HeroDuel create(Long player1Id, Long hero1Id, Long player2Id, Long hero2Id) {
+    public final HeroDuel create(Long player1Id, Long hero1Id, Long player2Id, Long hero2Id) {
         final var player1 = this.persistence.findPlayerById(player1Id);
         final var hero1 = this.persistence.findHeroById(hero1Id);
         final var player2 = this.persistence.findPlayerById(player2Id);
@@ -78,7 +78,10 @@ public class CreateHeroDuelServiceImpl implements CreateHeroDuelService {
     }
 
     private int getBonus(Hero hero1, Hero hero2) {
-        var heroBonus = this.persistence.findHeroBonus(hero1.getRef().getName(), hero2.getRef().getName());
+        final var heroBonus = this.persistence.findHeroBonus(
+            hero1.getRef().getName(),
+            hero2.getRef().getName()
+        );
         if (heroBonus == null) {
             return 0;
         }

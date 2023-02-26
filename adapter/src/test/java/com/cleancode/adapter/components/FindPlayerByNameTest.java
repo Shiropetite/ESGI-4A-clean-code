@@ -20,7 +20,7 @@ import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
-public class FindPlayerByNameTest {
+public final class FindPlayerByNameTest {
 
     @InjectMocks
     private FindPlayerByNameImpl service;
@@ -32,7 +32,7 @@ public class FindPlayerByNameTest {
     private ArgumentCaptor<String> playerNameCaptor;
 
     @Test
-    public void find_player_by_name() {
+    void should_find_player_by_name() {
         final var playerName = "Toto";
 
         final var expectedPlayerEntity = new PlayerEntity();
@@ -44,7 +44,6 @@ public class FindPlayerByNameTest {
         when(playerRepository.findPlayerEntityByName(eq(playerName))).thenReturn(Optional.of(expectedPlayerEntity));
 
         final var actual = service.findPlayerByName(playerName);
-
         assertThat(actual).usingRecursiveComparison().isEqualTo(expectedPlayer);
 
         verify(playerRepository).findPlayerEntityByName(playerNameCaptor.capture());

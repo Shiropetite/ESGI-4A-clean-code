@@ -6,13 +6,13 @@ import com.cleancode.domain.Player;
 import org.springframework.stereotype.Service;
 
 @Service
-public class CreatePlayerServiceImpl implements CreatePlayerService {
+public final class CreatePlayerServiceImpl implements CreatePlayerService {
 
     private final CreatePlayerPersistence persistence;
 
     public CreatePlayerServiceImpl(CreatePlayerPersistence persistence) { this.persistence = persistence; }
 
-    public Player create(String playerName) {
+    public final Player create(String playerName) {
         final var playerWithSameName = this.persistence.findPlayerByName(playerName);
 
         if (playerWithSameName != null) {

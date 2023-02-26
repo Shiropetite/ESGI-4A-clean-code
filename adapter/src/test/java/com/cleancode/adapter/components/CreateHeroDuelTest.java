@@ -24,7 +24,7 @@ import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
-public class CreateHeroDuelTest {
+public final class CreateHeroDuelTest {
 
     @InjectMocks
     private CreateHeroDuelImpl service;
@@ -42,7 +42,7 @@ public class CreateHeroDuelTest {
     private ArgumentCaptor<HeroDuelEntity> heroDuelCaptor;
 
     @Test
-    public void create_hero_duel_return_new_hero_duel() {
+    void should_create_hero_duel() {
         final var heroRefEntity = new HeroRefEntity();
         heroRefEntity.setId(1L);
 
@@ -65,18 +65,13 @@ public class CreateHeroDuelTest {
 
         final var hero1 = HeroMapper.get().toDomain(hero1Entity);
         final var hero2 = HeroMapper.get().toDomain(hero2Entity);
-        final var expectedHeroDuel = new HeroDuel(
-        1L,
-            hero1,
-            hero2
-        );
+        final var expectedHeroDuel = new HeroDuel(1L, hero1, hero2);
 
         when(heroRepository.findById(eq(1L))).thenReturn(Optional.of(hero1Entity));
         when(heroRepository.findById(eq(2L))).thenReturn(Optional.of(hero2Entity));
         when(heroDuelRepository.save(any(HeroDuelEntity.class))).thenReturn(heroDuelEntitySaved);
 
         final var actual = service.createHeroDuel(expectedHeroDuel);
-
         assertThat(actual).usingRecursiveComparison().isEqualTo(expectedHeroDuel);
 
         verify(heroRepository, times(2)).findById(findByIdCaptor.capture());
@@ -90,11 +85,12 @@ public class CreateHeroDuelTest {
     }
 
     @Test
-    public void create_hero_duel_return_null_when_winner_do_not_exist() {
+    void should_return_null_when_winner_not_found() {
         final var heroRefEntity = new HeroRefEntity();
         heroRefEntity.setId(1L);
 
         final var hero1Entity = new HeroEntity();
+        hero1Entity.setId(1L);
         hero1Entity.setRef(heroRefEntity);
 
         final var hero2Entity = new HeroEntity();
@@ -103,28 +99,24 @@ public class CreateHeroDuelTest {
 
         final var hero1 = HeroMapper.get().toDomain(hero1Entity);
         final var hero2 = HeroMapper.get().toDomain(hero2Entity);
-        final var expectedHeroDuel = new HeroDuel(
-                1L,
-                hero1,
-                hero2
-        );
+        final var mockHeroDuel = new HeroDuel(1L, hero1, hero2);
 
-        when(heroRepository.findById(null)).thenReturn(Optional.empty());
-        when(heroRepository.findById(eq(2L))).thenReturn(Optional.of(hero2Entity));
+        when(heroRepository.findById(hero1Entity.getId())).thenReturn(Optional.empty());
+        when(heroRepository.findById(hero2Entity.getId())).thenReturn(Optional.of(hero2Entity));
 
-        final var actual = service.createHeroDuel(expectedHeroDuel);
+        final var actual = service.createHeroDuel(mockHeroDuel);
 
         assertThat(actual).usingRecursiveComparison().isEqualTo(null);
 
         verify(heroRepository, times(2)).findById(findByIdCaptor.capture());
-        assertThat(findByIdCaptor.getAllValues().get(0)).isEqualTo(expectedHeroDuel.getWinner().getId());
-        assertThat(findByIdCaptor.getAllValues().get(1)).isEqualTo(expectedHeroDuel.getLoser().getId());
+        assertThat(findByIdCaptor.getAllValues().get(0)).isEqualTo(mockHeroDuel.getWinner().getId());
+        assertThat(findByIdCaptor.getAllValues().get(1)).isEqualTo(mockHeroDuel.getLoser().getId());
 
         verifyNoMoreInteractions(heroRepository, heroDuelRepository);
     }
 
     @Test
-    public void create_hero_duel_return_null_when_loser_do_not_exist() {
+    void should_return_null_when_loser_not_found() {
         final var heroRefEntity = new HeroRefEntity();
         heroRefEntity.setId(1L);
 
@@ -137,23 +129,20 @@ public class CreateHeroDuelTest {
 
         final var hero1 = HeroMapper.get().toDomain(hero1Entity);
         final var hero2 = HeroMapper.get().toDomain(hero2Entity);
-        final var expectedHeroDuel = new HeroDuel(
-                1L,
-                hero1,
-                hero2
-        );
+        final var mockHeroDuel = new HeroDuel(1L, hero1, hero2);
 
-        when(heroRepository.findById(null)).thenReturn(Optional.of(hero1Entity));
-        when(heroRepository.findById(eq(2L))).thenReturn(Optional.empty());
+        when(heroRepository.findById(hero1Entity.getId())).thenReturn(Optional.of(hero1Entity));
+        when(heroRepository.findById(hero2Entity.getId())).thenReturn(Optional.empty());
 
-        final var actual = service.createHeroDuel(expectedHeroDuel);
+        final var actual = service.createHeroDuel(mockHeroDuel);
 
         assertThat(actual).usingRecursiveComparison().isEqualTo(null);
 
         verify(heroRepository, times(2)).findById(findByIdCaptor.capture());
-        assertThat(findByIdCaptor.getAllValues().get(0)).isEqualTo(expectedHeroDuel.getWinner().getId());
-        assertThat(findByIdCaptor.getAllValues().get(1)).isEqualTo(expectedHeroDuel.getLoser().getId());
+        assertThat(findByIdCaptor.getAllValues().get(0)).isEqualTo(mockHeroDuel.getWinner().getId());
+        assertThat(findByIdCaptor.getAllValues().get(1)).isEqualTo(mockHeroDuel.getLoser().getId());
 
         verifyNoMoreInteractions(heroRepository, heroDuelRepository);
     }
+
 }

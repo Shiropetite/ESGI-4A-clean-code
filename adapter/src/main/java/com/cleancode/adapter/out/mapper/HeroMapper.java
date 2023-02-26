@@ -7,7 +7,7 @@ import com.cleancode.domain.Hero;
 import java.util.List;
 import java.util.stream.Collectors;
 
-public class HeroMapper implements Mapper<Hero, HeroEntity>, ListMapper<Hero, HeroEntity> {
+public final class HeroMapper implements Mapper<Hero, HeroEntity>, ListMapper<Hero, HeroEntity> {
 
     private static HeroMapper instance;
 
@@ -18,7 +18,7 @@ public class HeroMapper implements Mapper<Hero, HeroEntity>, ListMapper<Hero, He
         return instance;
     }
 
-    public Hero toDomain(HeroEntity entity) {
+    public final Hero toDomain(HeroEntity entity) {
         return new Hero(
             entity.getId(),
             HeroRefMapper.get().toDomain(entity.getRef()),
@@ -27,7 +27,7 @@ public class HeroMapper implements Mapper<Hero, HeroEntity>, ListMapper<Hero, He
         );
     }
 
-    public HeroEntity toEntity(Hero domain) {
+    public final HeroEntity toEntity(Hero domain) {
         HeroEntity entity = new HeroEntity();
         entity.setId(domain.getId());
         entity.setRef(HeroRefMapper.get().toEntity(domain.getRef()));
@@ -36,7 +36,7 @@ public class HeroMapper implements Mapper<Hero, HeroEntity>, ListMapper<Hero, He
         return entity;
     }
 
-    public HeroEntity toEntity(Hero domain, HeroRefEntity refEntity) {
+    public final HeroEntity toEntity(Hero domain, HeroRefEntity refEntity) {
         HeroEntity entity = new HeroEntity();
         entity.setRef(refEntity);
         entity.setXp(domain.getXp());
@@ -45,12 +45,13 @@ public class HeroMapper implements Mapper<Hero, HeroEntity>, ListMapper<Hero, He
     }
 
     @Override
-    public List<Hero> toDomain(List<HeroEntity> entities) {
+    public final List<Hero> toDomain(List<HeroEntity> entities) {
         return entities.stream().map(this::toDomain).collect(Collectors.toList());
     }
 
     @Override
-    public List<HeroEntity> toEntity(List<Hero> domains) {
+    public final List<HeroEntity> toEntity(List<Hero> domains) {
         return domains.stream().map(this::toEntity).collect(Collectors.toList());
     }
+
 }

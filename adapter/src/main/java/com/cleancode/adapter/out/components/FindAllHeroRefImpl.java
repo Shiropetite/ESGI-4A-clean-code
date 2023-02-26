@@ -10,14 +10,14 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @Component
-public class FindAllHeroRefImpl implements FindAllHeroRef {
+public final class FindAllHeroRefImpl implements FindAllHeroRef {
 
     private final HeroRefRepository repository;
 
     public FindAllHeroRefImpl(HeroRefRepository repository) { this.repository = repository; }
 
     @Override
-    public List<HeroRef> findAllHeroRef() {
+    public final List<HeroRef> findAllHeroRef() {
         return this.repository.findAll()
             .stream()
             .map(heroRefEntity -> HeroRefMapper.get().toDomain(heroRefEntity))

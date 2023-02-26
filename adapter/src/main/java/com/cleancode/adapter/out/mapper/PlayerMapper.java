@@ -3,7 +3,7 @@ package com.cleancode.adapter.out.mapper;
 import com.cleancode.adapter.out.entities.PlayerEntity;
 import com.cleancode.domain.Player;
 
-public class PlayerMapper implements Mapper<Player, PlayerEntity> {
+public final class PlayerMapper implements Mapper<Player, PlayerEntity> {
 
     private static PlayerMapper instance;
 
@@ -14,7 +14,7 @@ public class PlayerMapper implements Mapper<Player, PlayerEntity> {
         return instance;
     }
 
-    public Player toDomain(PlayerEntity entity) {
+    public final Player toDomain(PlayerEntity entity) {
         return Player.builder()
             .id(entity.getId())
             .name(entity.getName())
@@ -23,7 +23,7 @@ public class PlayerMapper implements Mapper<Player, PlayerEntity> {
             .build();
     }
 
-    public PlayerEntity toEntity(Player domain) {
+    public final PlayerEntity toEntity(Player domain) {
         PlayerEntity entity = new PlayerEntity();
         entity.setName(domain.getName());
         entity.setDeck(HeroMapper.get().toEntity(domain.getDeck()));

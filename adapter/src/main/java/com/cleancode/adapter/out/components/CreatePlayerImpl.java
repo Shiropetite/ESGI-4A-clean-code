@@ -7,7 +7,7 @@ import com.cleancode.domain.Player;
 import org.springframework.stereotype.Component;
 
 @Component
-public class CreatePlayerImpl implements CreatePlayer {
+public final class CreatePlayerImpl implements CreatePlayer {
 
     private final PlayerRepository playerRepository;
 
@@ -16,7 +16,7 @@ public class CreatePlayerImpl implements CreatePlayer {
     }
 
     @Override
-    public Player createPlayer(Player player) {
+    public final Player createPlayer(Player player) {
         return PlayerMapper.get().toDomain(this.playerRepository.save(PlayerMapper.get().toEntity(player)));
     }
 

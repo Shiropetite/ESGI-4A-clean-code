@@ -6,7 +6,7 @@ import java.util.List;
 
 @Entity
 @Table(name = "PLAYER")
-public class PlayerEntity {
+public final class PlayerEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

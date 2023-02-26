@@ -10,13 +10,13 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/heroes")
-public class SearchAvailableHeroesController {
+public final class SearchAvailableHeroesController {
 
     private final SearchAvailableHeroesService service;
 
     public SearchAvailableHeroesController(SearchAvailableHeroesService service) { this.service = service; }
 
     @GetMapping
-    public List<HeroRef> search() { return this.service.search(); }
+    public final List<HeroRef> search() { return this.service.search(); }
 
 }

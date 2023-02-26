@@ -9,29 +9,19 @@ import com.cleancode.domain.Player;
 
 import java.util.List;
 
-public class CreateHeroDuelPersistenceImpl implements CreateHeroDuelPersistence {
-
-    private final FindPlayerById findPlayerById;
-    private final FindHeroById findHeroById;
-    private final FindHeroBonus findHeroBonus;
-    private final FindPlayerVictories findPlayerVictories;
-    private final UpdateHero updateHero;
-    private final UpdatePlayer updatePlayer;
-    private final CreateHeroDuel createHeroDuel;
-
-    public CreateHeroDuelPersistenceImpl(FindPlayerById findPlayerById, FindHeroById findHeroById, FindHeroBonus findHeroBonus, FindPlayerVictories findPlayerVictories, UpdateHero updateHero, UpdatePlayer updatePlayer, CreateHeroDuel createHeroDuel) {
-        this.findPlayerById = findPlayerById;
-        this.findHeroById = findHeroById;
-        this.findHeroBonus = findHeroBonus;
-        this.findPlayerVictories = findPlayerVictories;
-        this.updateHero = updateHero;
-        this.updatePlayer = updatePlayer;
-        this.createHeroDuel = createHeroDuel;
-    }
+public final record CreateHeroDuelPersistenceImpl(
+    FindPlayerById findPlayerById,
+    FindHeroById findHeroById,
+    FindPlayerVictories findPlayerVictories,
+    FindHeroBonus findHeroBonus,
+    UpdatePlayer updatePlayer,
+    UpdateHero updateHero,
+    CreateHeroDuel createHeroDuel
+) implements CreateHeroDuelPersistence {
 
     @Override
-    public HeroBonus findHeroBonus(String strongHero, String weakHero) {
-        return this.findHeroBonus.findHeroBonus(strongHero, weakHero);
+    public Player findPlayerById(Long id) {
+        return this.findPlayerById.findPlayerById(id);
     }
 
     @Override
@@ -40,13 +30,18 @@ public class CreateHeroDuelPersistenceImpl implements CreateHeroDuelPersistence 
     }
 
     @Override
-    public Player findPlayerById(Long id) {
-        return this.findPlayerById.findPlayerById(id);
+    public List<HeroDuel> findPlayerVictories(Player player) {
+        return this.findPlayerVictories.findPlayerVictories(player);
     }
 
     @Override
-    public List<HeroDuel> findPlayerVictories(Player player) {
-        return this.findPlayerVictories.findPlayerVictories(player);
+    public HeroBonus findHeroBonus(String strongHero, String weakHero) {
+        return this.findHeroBonus.findHeroBonus(strongHero, weakHero);
+    }
+
+    @Override
+    public Player updatePlayer(Player player) {
+        return this.updatePlayer.updatePlayer(player);
     }
 
     @Override
@@ -59,8 +54,4 @@ public class CreateHeroDuelPersistenceImpl implements CreateHeroDuelPersistence 
         return this.createHeroDuel.createHeroDuel(duel);
     }
 
-    @Override
-    public Player updatePlayer(Player player) {
-        return this.updatePlayer.updatePlayer(player);
-    }
 }

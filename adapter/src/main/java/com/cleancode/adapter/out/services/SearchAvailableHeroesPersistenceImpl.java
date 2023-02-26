@@ -6,7 +6,7 @@ import com.cleancode.domain.HeroRef;
 
 import java.util.List;
 
-public class SearchAvailableHeroesPersistenceImpl implements SearchAvailableHeroesPersistence {
+public final class SearchAvailableHeroesPersistenceImpl implements SearchAvailableHeroesPersistence {
 
     private final FindAllHeroRef findAllHeroRef;
 
@@ -18,4 +18,5 @@ public class SearchAvailableHeroesPersistenceImpl implements SearchAvailableHero
     public List<HeroRef> findAllHeroRef() {
         return this.findAllHeroRef.findAllHeroRef();
     }
+
 }

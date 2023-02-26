@@ -18,7 +18,7 @@ import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
-public class CreateHeroTest {
+public final class CreateHeroTest {
 
     @InjectMocks
     private CreateHeroImpl service;
@@ -30,12 +30,9 @@ public class CreateHeroTest {
     private ArgumentCaptor<HeroEntity> heroEntityCaptor;
 
     @Test
-    public void create_hero() {
+    void should_create_hero() {
         final var heroRefEntity = new HeroRefEntity();
         heroRefEntity.setRarity("Commun");
-
-        final var heroEntity = new HeroEntity();
-        heroEntity.setRef(heroRefEntity);
 
         final var saveHeroEntity = new HeroEntity();
         saveHeroEntity.setId(1L);
@@ -46,12 +43,12 @@ public class CreateHeroTest {
         when(heroRepository.save(any(HeroEntity.class))).thenReturn(saveHeroEntity);
 
         final var actual = service.createHero(expectedHero);
-
         assertThat(actual).usingRecursiveComparison().isEqualTo(expectedHero);
 
         verify(heroRepository).save(heroEntityCaptor.capture());
-        assertThat(heroEntityCaptor.getValue()).usingRecursiveComparison().isEqualTo(heroEntity);
+        assertThat(heroEntityCaptor.getValue()).usingRecursiveComparison().isEqualTo(saveHeroEntity);
 
         verifyNoMoreInteractions(heroRepository);
     }
+
 }

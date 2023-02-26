@@ -8,13 +8,13 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 @Service
-public class SearchAvailableHeroesServiceImpl implements SearchAvailableHeroesService {
+public final class SearchAvailableHeroesServiceImpl implements SearchAvailableHeroesService {
 
     private final SearchAvailableHeroesPersistence persistence;
 
     public SearchAvailableHeroesServiceImpl(SearchAvailableHeroesPersistence persistence) { this.persistence = persistence; }
 
-    public List<HeroRef> search() {
+    public final List<HeroRef> search() {
         return this.persistence.findAllHeroRef();
     }
 

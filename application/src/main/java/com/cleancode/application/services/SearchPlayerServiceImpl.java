@@ -7,13 +7,13 @@ import org.springframework.stereotype.Service;
 
 
 @Service
-public class SearchPlayerServiceImpl implements SearchPlayerService {
+public final class SearchPlayerServiceImpl implements SearchPlayerService {
 
     private final SearchPlayerPersistence persistence;
 
     public SearchPlayerServiceImpl(SearchPlayerPersistence persistence) { this.persistence = persistence; }
 
-    public Player search(String playerName) {
+    public final Player search(String playerName) {
         final var player = this.persistence.findPlayerByName(playerName);
         if (player == null) {
             throw new RuntimeException("Le joueur " + playerName + " n'existe pas");

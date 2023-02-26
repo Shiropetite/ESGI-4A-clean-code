@@ -17,7 +17,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
-public class CreateHeroesServiceTest {
+public final class CreateHeroesServiceTest {
 
     @InjectMocks
     private CreateHeroesServiceImpl service;
@@ -45,14 +45,10 @@ public class CreateHeroesServiceTest {
         when(persistence.createHeroRef(eq(mockRef1))).thenReturn(mockRef1);
 
         final var actual = service.create(expectedRefs);
-        assertThat(actual)
-            .usingRecursiveComparison()
-            .isEqualTo(expectedRefs);
+        assertThat(actual).usingRecursiveComparison().isEqualTo(expectedRefs);
 
         verify(persistence).createHeroRef(refsCaptor.capture());
-        assertThat(refsCaptor.getValue())
-            .usingRecursiveComparison()
-            .isEqualTo(mockRef1);
+        assertThat(refsCaptor.getValue()).usingRecursiveComparison().isEqualTo(mockRef1);
 
         verifyNoMoreInteractions(persistence);
     }

@@ -20,7 +20,7 @@ import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
-public class UpdateHeroTest {
+public final class UpdateHeroTest {
 
     @InjectMocks
     private UpdateHeroImpl service;
@@ -35,7 +35,7 @@ public class UpdateHeroTest {
     private ArgumentCaptor<HeroEntity> heroEntityCaptor;
 
     @Test
-    public void update_hero_when_hero_id_found() {
+    void should_update_hero() {
         final var heroId = 1L;
 
         final var heroEntity = new HeroEntity();
@@ -48,7 +48,6 @@ public class UpdateHeroTest {
         when(heroRepository.save(eq(heroEntity))).thenReturn(heroEntity);
 
         final var actual = this.service.updateHero(expectedHero);
-
         assertThat(actual).usingRecursiveComparison().isEqualTo(expectedHero);
 
         verify(heroRepository).findById(heroIdCaptor.capture());
@@ -61,7 +60,7 @@ public class UpdateHeroTest {
     }
 
     @Test
-    public void update_hero_return_null_when_hero_id_not_found() {
+    void should_return_null_when_hero_not_found() {
         final var heroEntity = new HeroEntity();
         heroEntity.setId(0L);
         heroEntity.setRef(new HeroRefEntity());
@@ -71,7 +70,6 @@ public class UpdateHeroTest {
         when(heroRepository.findById(heroEntity.getId())).thenReturn(Optional.empty());
 
         final var actual = this.service.updateHero(expectedHero);
-
         assertThat(actual).usingRecursiveComparison().isEqualTo(null);
 
         verify(heroRepository).findById(heroIdCaptor.capture());

@@ -7,7 +7,7 @@ import com.cleancode.domain.Hero;
 import org.springframework.stereotype.Component;
 
 @Component
-public class FindHeroByIdImpl implements FindHeroById {
+public final class FindHeroByIdImpl implements FindHeroById {
 
     private final HeroRepository heroRepository;
 
@@ -16,10 +16,10 @@ public class FindHeroByIdImpl implements FindHeroById {
     }
 
     @Override
-    public Hero findHeroById(Long id) {
+    public final Hero findHeroById(Long id) {
         return this.heroRepository.findById(id)
             .map(heroEntity -> HeroMapper.get().toDomain(heroEntity))
-                .orElse(null);
+            .orElse(null);
     }
     
 }

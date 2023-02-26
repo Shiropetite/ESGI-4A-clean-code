@@ -27,18 +27,18 @@ public class ApplicationConfiguration {
 
     @Bean
     public OpenHeroPackPersistence openHeroPackOut(
-        FindHeroPackByIdImpl findHeroPackById,
         FindPlayerByIdImpl findPlayerById,
+        FindHeroPackByIdImpl findHeroPackById,
         FindRandomHeroRefByRarityImpl findRandomHeroRefByRarity,
         CreateHeroImpl createHero,
         UpdatePlayerImpl updatePlayer
     ) {
         return new OpenHeroPackPersistenceImpl(
-                findHeroPackById,
-                findPlayerById,
-                findRandomHeroRefByRarity,
-                createHero,
-                updatePlayer
+            findPlayerById,
+            findHeroPackById,
+            findRandomHeroRefByRarity,
+            createHero,
+            updatePlayer
         );
     }
 
@@ -58,18 +58,21 @@ public class ApplicationConfiguration {
         CreateHeroDuelImpl saveHeroDuel
     ) {
         return new CreateHeroDuelPersistenceImpl(
-                findPlayerById,
-                findHeroById,
-                findHeroBonus,
-                findPlayerVictories,
-                saveHero,
-                updatePlayer,
-                saveHeroDuel
+            findPlayerById,
+            findHeroById,
+            findPlayerVictories,
+            findHeroBonus,
+            updatePlayer,
+            saveHero,
+            saveHeroDuel
         );
     }
 
     @Bean
-    public SearchHeroDuelsPersistence searchHeroDuelsOut(FindHeroByIdImpl findHeroById, FindHeroDuelsByHero findHeroDuelsByHero) {
+    public SearchHeroDuelsPersistence searchHeroDuelsOut(
+        FindHeroByIdImpl findHeroById,
+        FindHeroDuelsByHero findHeroDuelsByHero
+    ) {
         return new SearchHeroDuelsPersistenceImpl(findHeroById, findHeroDuelsByHero);
     }
 

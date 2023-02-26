@@ -9,7 +9,7 @@ import org.springframework.stereotype.Component;
 import java.util.Random;
 
 @Component
-public class FindRandomHeroRefByRarityImpl implements FindRandomHeroRefByRarity {
+public final class FindRandomHeroRefByRarityImpl implements FindRandomHeroRefByRarity {
 
     private final HeroRefRepository heroRefRepository;
 
@@ -18,7 +18,7 @@ public class FindRandomHeroRefByRarityImpl implements FindRandomHeroRefByRarity 
     }
 
     @Override
-    public HeroRef findRandomHeroRefByRarity(String heroRarityName) {
+    public final HeroRef findRandomHeroRefByRarity(String heroRarityName) {
         final var heroRefEntities = this.heroRefRepository.findHeroRefEntityByRarity(heroRarityName);
         if (heroRefEntities.isEmpty()) { return null; }
         final var heroRefs = HeroRefMapper.get().toDomain(heroRefEntities.get());

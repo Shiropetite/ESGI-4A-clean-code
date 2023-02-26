@@ -20,7 +20,7 @@ import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
-public class FindHeroByIdTest {
+public final class FindHeroByIdTest {
 
     @InjectMocks
     private FindHeroByIdImpl service;
@@ -32,7 +32,7 @@ public class FindHeroByIdTest {
     private ArgumentCaptor<Long> heroIdCaptor;
 
     @Test
-    public void find_hero_by_id() {
+    void find_hero_by_id() {
         final var heroId = 1L;
 
         final var expectedHeroEntity = new HeroEntity();
@@ -44,7 +44,6 @@ public class FindHeroByIdTest {
         when(heroRepository.findById(eq(heroId))).thenReturn(Optional.of(expectedHeroEntity));
 
         final var actual = service.findHeroById(heroId);
-
         assertThat(actual).usingRecursiveComparison().isEqualTo(expectedHero);
 
         verify(heroRepository).findById(heroIdCaptor.capture());

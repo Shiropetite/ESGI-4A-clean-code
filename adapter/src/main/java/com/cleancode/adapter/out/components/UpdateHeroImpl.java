@@ -7,7 +7,7 @@ import com.cleancode.domain.Hero;
 import org.springframework.stereotype.Component;
 
 @Component
-public class UpdateHeroImpl implements UpdateHero {
+public final class UpdateHeroImpl implements UpdateHero {
 
     private final HeroRepository heroRepository;
 
@@ -16,7 +16,7 @@ public class UpdateHeroImpl implements UpdateHero {
     }
 
     @Override
-    public Hero updateHero(Hero hero) {
+    public final Hero updateHero(Hero hero) {
         final var heroEntity = this.heroRepository.findById(hero.getId());
         if (heroEntity.isEmpty()) { return null; }
 
@@ -26,4 +26,5 @@ public class UpdateHeroImpl implements UpdateHero {
         final var entity = this.heroRepository.save(heroEntity.get());
         return HeroMapper.get().toDomain(entity);
     }
+
 }

@@ -9,14 +9,14 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping("/players")
-public class SearchPlayerController {
+public final class SearchPlayerController {
 
     private final SearchPlayerService service;
 
     public SearchPlayerController(SearchPlayerService service) { this.service = service; }
 
     @GetMapping("/{playerName}")
-    public ResponseEntity search(@PathVariable String playerName) {
+    public final ResponseEntity search(@PathVariable String playerName) {
         try {
             var player = this.service.search(playerName);
             return ResponseEntity.ok().body(player);

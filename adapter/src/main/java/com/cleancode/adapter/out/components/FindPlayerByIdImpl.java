@@ -7,7 +7,7 @@ import com.cleancode.domain.Player;
 import org.springframework.stereotype.Component;
 
 @Component
-public class FindPlayerByIdImpl implements FindPlayerById {
+public final class FindPlayerByIdImpl implements FindPlayerById {
 
     private final PlayerRepository playerRepository;
 
@@ -16,9 +16,10 @@ public class FindPlayerByIdImpl implements FindPlayerById {
     }
 
     @Override
-    public Player findPlayerById(Long id) {
+    public final Player findPlayerById(Long id) {
         return this.playerRepository.findById(id).map(
             playerEntity -> PlayerMapper.get().toDomain(playerEntity)
         ).orElse(null);
     }
+
 }

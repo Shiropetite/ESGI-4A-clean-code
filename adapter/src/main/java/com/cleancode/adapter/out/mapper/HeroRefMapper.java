@@ -6,7 +6,7 @@ import com.cleancode.domain.HeroRef;
 import java.util.List;
 import java.util.stream.Collectors;
 
-public class HeroRefMapper implements Mapper<HeroRef, HeroRefEntity>, ListMapper<HeroRef, HeroRefEntity> {
+public final class HeroRefMapper implements Mapper<HeroRef, HeroRefEntity>, ListMapper<HeroRef, HeroRefEntity> {
 
     private static HeroRefMapper instance;
 
@@ -17,7 +17,7 @@ public class HeroRefMapper implements Mapper<HeroRef, HeroRefEntity>, ListMapper
         return instance;
     }
 
-    public HeroRef toDomain(HeroRefEntity entity) {
+    public final HeroRef toDomain(HeroRefEntity entity) {
         return new HeroRef(
             entity.getId(),
             entity.getName(),
@@ -28,7 +28,7 @@ public class HeroRefMapper implements Mapper<HeroRef, HeroRefEntity>, ListMapper
         );
     }
 
-    public HeroRefEntity toEntity(HeroRef domain) {
+    public final HeroRefEntity toEntity(HeroRef domain) {
         HeroRefEntity entity = new HeroRefEntity();
         entity.setId(domain.getId());
         entity.setName(domain.getName());
@@ -40,12 +40,13 @@ public class HeroRefMapper implements Mapper<HeroRef, HeroRefEntity>, ListMapper
     }
 
     @Override
-    public List<HeroRef> toDomain(List<HeroRefEntity> entities) {
+    public final List<HeroRef> toDomain(List<HeroRefEntity> entities) {
         return entities.stream().map(this::toDomain).collect(Collectors.toList());
     }
 
     @Override
-    public List<HeroRefEntity> toEntity(List<HeroRef> domains) {
+    public final List<HeroRefEntity> toEntity(List<HeroRef> domains) {
         return domains.stream().map(this::toEntity).collect(Collectors.toList());
     }
+
 }

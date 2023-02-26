@@ -11,14 +11,14 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/heroes")
-public class CreateHeroesController {
+public final class CreateHeroesController {
 
     private final CreateHeroesService service;
 
     public CreateHeroesController(CreateHeroesService service) { this.service = service; }
 
     @PostMapping
-    public List<HeroRef> create(@RequestBody List<HeroRef> heroes) {
+    public final List<HeroRef> create(@RequestBody List<HeroRef> heroes) {
         return this.service.create(heroes);
     }
 

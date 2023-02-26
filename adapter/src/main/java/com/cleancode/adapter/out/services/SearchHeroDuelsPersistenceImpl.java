@@ -7,15 +7,11 @@ import com.cleancode.domain.Hero;
 import com.cleancode.domain.HeroDuel;
 
 import java.util.List;
-public class SearchHeroDuelsPersistenceImpl implements SearchHeroDuelsPersistence {
 
-    private final FindHeroById findHeroById;
-    private final FindHeroDuelsByHero findHeroDuelsByHero;
-
-    public SearchHeroDuelsPersistenceImpl(FindHeroById findHeroById, FindHeroDuelsByHero findHeroDuelsByHero) {
-        this.findHeroById = findHeroById;
-        this.findHeroDuelsByHero = findHeroDuelsByHero;
-    }
+public final record SearchHeroDuelsPersistenceImpl(
+    FindHeroById findHeroById,
+    FindHeroDuelsByHero findHeroDuelsByHero
+) implements SearchHeroDuelsPersistence {
 
     @Override
     public Hero findHeroById(Long id) {
@@ -26,4 +22,5 @@ public class SearchHeroDuelsPersistenceImpl implements SearchHeroDuelsPersistenc
     public List<HeroDuel> findHeroDuelsByHero(Hero hero) {
         return this.findHeroDuelsByHero.findHeroDuelsByHero(hero);
     }
+
 }

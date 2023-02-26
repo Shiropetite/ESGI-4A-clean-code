@@ -4,13 +4,7 @@ import com.cleancode.application.ports.out.CreateHeroesPersistence;
 import com.cleancode.application.ports.out.repositories.CreateHeroRef;
 import com.cleancode.domain.HeroRef;
 
-public class CreateHeroesPersistenceImpl implements CreateHeroesPersistence {
-
-    private final CreateHeroRef createHeroRef;
-
-    public CreateHeroesPersistenceImpl(CreateHeroRef createHeroRef) {
-        this.createHeroRef = createHeroRef;
-    }
+public final record CreateHeroesPersistenceImpl(CreateHeroRef createHeroRef) implements CreateHeroesPersistence {
 
     @Override
     public HeroRef createHeroRef(HeroRef hero) {

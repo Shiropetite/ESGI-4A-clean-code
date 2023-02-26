@@ -9,13 +9,13 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Service
-public class CreateHeroesServiceImpl implements CreateHeroesService {
+public final class CreateHeroesServiceImpl implements CreateHeroesService {
 
     private final CreateHeroesPersistence persistence;
 
     public CreateHeroesServiceImpl(CreateHeroesPersistence persistence) { this.persistence = persistence; }
 
-    public List<HeroRef> create(List<HeroRef> heroes) {
+    public final List<HeroRef> create(List<HeroRef> heroes) {
         final var saveHeroes = new ArrayList<HeroRef>();
 
         for (HeroRef hero: heroes) {

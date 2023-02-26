@@ -16,7 +16,7 @@ import static org.assertj.core.api.Assertions.assertThatExceptionOfType;
 import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
-public class SearchPlayerServiceTest {
+public final class SearchPlayerServiceTest {
 
     @InjectMocks
     private SearchPlayerServiceImpl service;
@@ -28,32 +28,23 @@ public class SearchPlayerServiceTest {
     private ArgumentCaptor<String> playerNameCaptor;
 
     @Test
-    public void should_search_player() {
-        final var expectedPlayer = Player.builder()
-            .id(1L)
-            .name("expectedPlayer")
-            .build();
+    void should_search_player() {
+        final var expectedPlayer = Player.builder().id(1L).name("expectedPlayer").build();
 
         when(persistence.findPlayerByName(expectedPlayer.getName())).thenReturn(expectedPlayer);
 
         final var actual = service.search(expectedPlayer.getName());
-        assertThat(actual)
-            .usingRecursiveComparison()
-            .isEqualTo(expectedPlayer);
+        assertThat(actual).usingRecursiveComparison().isEqualTo(expectedPlayer);
 
         verify(persistence).findPlayerByName(playerNameCaptor.capture());
-        assertThat(playerNameCaptor.getValue())
-            .isEqualTo(expectedPlayer.getName());
+        assertThat(playerNameCaptor.getValue()).isEqualTo(expectedPlayer.getName());
 
         verifyNoMoreInteractions(persistence);
     }
 
     @Test
-    public void should_throw_when_player_not_found() {
-        final var expectedPlayer = Player.builder()
-            .id(1L)
-            .name("expectedPlayer")
-            .build();
+    void should_throw_when_player_not_found() {
+        final var expectedPlayer = Player.builder().id(1L).name("expectedPlayer").build();
 
         when(persistence.findPlayerByName(expectedPlayer.getName())).thenReturn(null);
 
@@ -63,8 +54,7 @@ public class SearchPlayerServiceTest {
             ).withMessage("Le joueur " + expectedPlayer.getName() + " n'existe pas");
 
         verify(persistence).findPlayerByName(playerNameCaptor.capture());
-        assertThat(playerNameCaptor.getValue())
-            .isEqualTo(expectedPlayer.getName());
+        assertThat(playerNameCaptor.getValue()).isEqualTo(expectedPlayer.getName());
 
         verifyNoMoreInteractions(persistence);
     }

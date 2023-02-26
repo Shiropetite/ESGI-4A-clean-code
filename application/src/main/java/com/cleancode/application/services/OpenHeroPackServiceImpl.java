@@ -13,13 +13,13 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Service
-public class OpenHeroPackServiceImpl implements OpenHeroPackService {
+public final class OpenHeroPackServiceImpl implements OpenHeroPackService {
 
     private final OpenHeroPackPersistence persistence;
 
     public OpenHeroPackServiceImpl(OpenHeroPackPersistence persistence) { this.persistence = persistence; }
 
-    public List<Hero> open(Long playerId, Long heroPackId) {
+    public final List<Hero> open(Long playerId, Long heroPackId) {
         final var player = this.persistence.findPlayerById(playerId);
         final var pack = this.persistence.findHeroPackById(heroPackId);
 

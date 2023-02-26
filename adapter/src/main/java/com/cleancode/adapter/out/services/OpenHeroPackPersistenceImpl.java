@@ -7,30 +7,22 @@ import com.cleancode.domain.HeroPack;
 import com.cleancode.domain.HeroRef;
 import com.cleancode.domain.Player;
 
-public class OpenHeroPackPersistenceImpl implements OpenHeroPackPersistence {
+public record OpenHeroPackPersistenceImpl(
+    FindPlayerById findPlayerById,
+    FindHeroPackById findHeroPackById,
+    FindRandomHeroRefByRarity findRandomHeroRefByRarity,
+    CreateHero createHero,
+    UpdatePlayer updatePlayer
+) implements OpenHeroPackPersistence {
 
-    private final FindHeroPackById findHeroPackById;
-    private final FindPlayerById findPlayerById;
-    private final FindRandomHeroRefByRarity findRandomHeroRefByRarity;
-    private final CreateHero createHero;
-    private final UpdatePlayer updatePlayer;
-
-    public OpenHeroPackPersistenceImpl(FindHeroPackById findHeroPackById, FindPlayerById findPlayerById, FindRandomHeroRefByRarity findRandomHeroRefByRarity, CreateHero createHero, UpdatePlayer updatePlayer) {
-        this.findHeroPackById = findHeroPackById;
-        this.findPlayerById = findPlayerById;
-        this.findRandomHeroRefByRarity = findRandomHeroRefByRarity;
-        this.createHero = createHero;
-        this.updatePlayer = updatePlayer;
+    @Override
+    public Player findPlayerById(Long id) {
+        return this.findPlayerById.findPlayerById(id);
     }
 
     @Override
     public HeroPack findHeroPackById(Long id) {
         return this.findHeroPackById.findHeroPackById(id);
-    }
-
-    @Override
-    public Player findPlayerById(Long id) {
-        return this.findPlayerById.findPlayerById(id);
     }
 
     @Override
@@ -47,4 +39,5 @@ public class OpenHeroPackPersistenceImpl implements OpenHeroPackPersistence {
     public Player updatePlayer(Player player) {
         return this.updatePlayer.updatePlayer(player);
     }
+
 }

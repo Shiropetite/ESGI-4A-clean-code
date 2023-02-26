@@ -9,7 +9,7 @@ import com.cleancode.domain.HeroDuel;
 import org.springframework.stereotype.Component;
 
 @Component
-public class CreateHeroDuelImpl implements CreateHeroDuel {
+public final class CreateHeroDuelImpl implements CreateHeroDuel {
 
     private final HeroRepository heroRepository;
     private final HeroDuelRepository heroDuelRepository;
@@ -20,7 +20,7 @@ public class CreateHeroDuelImpl implements CreateHeroDuel {
     }
 
     @Override
-    public HeroDuel createHeroDuel(HeroDuel duel) {
+    public final HeroDuel createHeroDuel(HeroDuel duel) {
         final var winnerEntity = this.heroRepository.findById(duel.getWinner().getId());
         final var loserEntity = this.heroRepository.findById(duel.getLoser().getId());
 

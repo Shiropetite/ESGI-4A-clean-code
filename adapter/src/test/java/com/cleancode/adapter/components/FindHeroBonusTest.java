@@ -19,7 +19,7 @@ import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
-public class FindHeroBonusTest {
+public final class FindHeroBonusTest {
 
     @InjectMocks
     private FindHeroBonusImpl service;
@@ -34,24 +34,21 @@ public class FindHeroBonusTest {
     private ArgumentCaptor<String> weakNameCaptor;
 
     @Test
-    public void find_hero_bonus() {
-        final var expectedHeroRefEntity = new HeroBonusEntity();
+    void should_find_hero_bonus() {
+        final var mockHeroRefEntity = new HeroBonusEntity();
+        final var mockStrongHeroName = "mockStrongHeroName";
+        final var mockWeakHeroName = "mockWeakHeroName";
+        final var expectedHeroRef = HeroBonusMapper.get().toDomain(mockHeroRefEntity);
 
-        final var strongName = "Tank";
-        final var weakName = "Mage";
+        when(heroBonusRepository.findHeroBonusEntityByStrongAndWeak(eq(mockStrongHeroName), eq(mockWeakHeroName)))
+            .thenReturn(Optional.of(mockHeroRefEntity));
 
-        final var expectedHeroRef = HeroBonusMapper.get().toDomain(expectedHeroRefEntity);
-
-        when(heroBonusRepository.findHeroBonusEntityByStrongAndWeak(eq(strongName), eq(weakName)))
-                .thenReturn(Optional.of(expectedHeroRefEntity));
-
-        final var actual = service.findHeroBonus("Tank", "Mage");
-
+        final var actual = service.findHeroBonus(mockStrongHeroName, mockWeakHeroName);
         assertThat(actual).usingRecursiveComparison().isEqualTo(expectedHeroRef);
 
         verify(heroBonusRepository).findHeroBonusEntityByStrongAndWeak(strongNameCaptor.capture(), weakNameCaptor.capture());
-        assertThat(strongNameCaptor.getValue()).isEqualTo(strongName);
-        assertThat(weakNameCaptor.getValue()).isEqualTo(weakName);
+        assertThat(strongNameCaptor.getValue()).isEqualTo(mockStrongHeroName);
+        assertThat(weakNameCaptor.getValue()).isEqualTo(mockWeakHeroName);
 
         verifyNoMoreInteractions(heroBonusRepository);
     }

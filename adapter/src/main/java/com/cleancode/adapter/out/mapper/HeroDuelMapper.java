@@ -6,7 +6,7 @@ import com.cleancode.domain.HeroDuel;
 import java.util.List;
 import java.util.stream.Collectors;
 
-public class HeroDuelMapper implements Mapper<HeroDuel, HeroDuelEntity>, ListMapper<HeroDuel, HeroDuelEntity> {
+public final class HeroDuelMapper implements Mapper<HeroDuel, HeroDuelEntity>, ListMapper<HeroDuel, HeroDuelEntity> {
 
     private static HeroDuelMapper instance;
 
@@ -17,7 +17,7 @@ public class HeroDuelMapper implements Mapper<HeroDuel, HeroDuelEntity>, ListMap
         return instance;
     }
 
-    public HeroDuel toDomain(HeroDuelEntity entity) {
+    public final HeroDuel toDomain(HeroDuelEntity entity) {
         return new HeroDuel(
             entity.getId(),
             HeroMapper.get().toDomain(entity.getWinner()),
@@ -25,7 +25,7 @@ public class HeroDuelMapper implements Mapper<HeroDuel, HeroDuelEntity>, ListMap
         );
     }
 
-    public HeroDuelEntity toEntity(HeroDuel domain) {
+    public final HeroDuelEntity toEntity(HeroDuel domain) {
         HeroDuelEntity entity = new HeroDuelEntity();
         entity.setWinner(HeroMapper.get().toEntity(domain.getWinner()));
         entity.setLoser(HeroMapper.get().toEntity(domain.getLoser()));
@@ -33,12 +33,13 @@ public class HeroDuelMapper implements Mapper<HeroDuel, HeroDuelEntity>, ListMap
     }
 
     @Override
-    public List<HeroDuel> toDomain(List<HeroDuelEntity> entities) {
+    public final List<HeroDuel> toDomain(List<HeroDuelEntity> entities) {
         return entities.stream().map(this::toDomain).collect(Collectors.toList());
     }
 
     @Override
-    public List<HeroDuelEntity> toEntity(List<HeroDuel> domains) {
+    public final List<HeroDuelEntity> toEntity(List<HeroDuel> domains) {
         return domains.stream().map(this::toEntity).collect(Collectors.toList());
     }
+
 }

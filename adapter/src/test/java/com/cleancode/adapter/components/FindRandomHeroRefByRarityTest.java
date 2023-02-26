@@ -20,7 +20,7 @@ import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
-public class FindRandomHeroRefByRarityTest {
+public final class FindRandomHeroRefByRarityTest {
 
     @InjectMocks
     private FindRandomHeroRefByRarityImpl service;
@@ -32,7 +32,7 @@ public class FindRandomHeroRefByRarityTest {
     private ArgumentCaptor<String> rarityCaptor;
 
     @Test
-    public void find_random_hero_ref_by_rarity() {
+    void should_find_random_hero_ref_by_rarity() {
         final var rarity = "Commun";
 
         final var heroRefEntity = new HeroRefEntity();
@@ -46,7 +46,6 @@ public class FindRandomHeroRefByRarityTest {
         when(heroRefRepository.findHeroRefEntityByRarity(eq(rarity))).thenReturn(Optional.of(expectedHeroRefEntities));
 
         final var actual = this.service.findRandomHeroRefByRarity(rarity);
-
         assertThat(actual).usingRecursiveComparison().isEqualTo(expectedHeroRef);
 
         verify(heroRefRepository).findHeroRefEntityByRarity(rarityCaptor.capture());
